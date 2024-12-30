@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom right, #004965, #00a08c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 1.8em;
+            color: #004965;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1em;
+            color: #004965;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #00a08c;
+            box-shadow: 0 0 8px rgba(0, 160, 140, 0.5);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1em;
+            color: white;
+            background: #00a08c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #008b75;
+            transform: scale(1.05);
+        }
+
+        .alert {
+            display: none;
+            padding: 10px;
+            margin-bottom: 15px;
+            color: white;
+            background: #dc3545;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .alert.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>تسجيل الدخول</h1>
+        <div class="alert" id="error">رقم الجوال أو كلمة المرور غير صحيحة</div>
+        <div class="form-group">
+            <label for="phone">رقم الجوال</label>
+            <input type="tel" id="phone" placeholder="أدخل رقم الجوال" pattern="[0-9]*" inputmode="numeric">
+        </div>
+        <div class="form-group">
+            <label for="password">كلمة المرور</label>
+            <input type="password" id="password" placeholder="أدخل كلمة المرور">
+        </div>
+        <button onclick="login()">تسجيل الدخول</button>
+    </div>
+
+    <script>
+        const users = {
+            "0504854223": "1122",
+            "0506399549": "1234"
+        };
+
+        function login() {
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const error = document.getElementById('error');
+
+            if (users[phone] && users[phone] === password) {
+                localStorage.setItem('loggedIn', true);
+                window.location.href = "index.html";
+            } else {
+                error.classList.add('show');
+                setTimeout(() => {
+                    error.classList.remove('show');
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
