@@ -90,6 +90,21 @@
         .alert.show {
             display: block;
         }
+
+        .activate-message {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #004965;
+        }
+
+        .activate-message a {
+            color: #00a08c;
+            text-decoration: none;
+        }
+
+        .activate-message a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +120,10 @@
             <input type="password" id="password" placeholder="أدخل كلمة المرور">
         </div>
         <button onclick="login()">تسجيل الدخول</button>
+        <div class="activate-message">
+            لتنشيط الحساب يرجى مراسلتنا عبر الواتس
+            <a href="https://wa.me/966504854223" target="_blank">اضغط هنا</a>
+        </div>
     </div>
 
     <script>
@@ -119,9 +138,7 @@
             const error = document.getElementById('error');
 
             if (users[phone] && users[phone] === password) {
-                // تخزين حالة تسجيل الدخول
                 localStorage.setItem('loggedIn', true);
-                // توجيه المستخدم إلى الصفحة الرئيسية
                 window.location.href = "index.html";
             } else {
                 error.classList.add('show');
