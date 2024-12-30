@@ -91,19 +91,14 @@
             display: block;
         }
 
-        .activate-message {
+        .preview-image {
             margin-top: 20px;
-            font-size: 0.9em;
-            color: #004965;
         }
 
-        .activate-message a {
-            color: #00a08c;
-            text-decoration: none;
-        }
-
-        .activate-message a:hover {
-            text-decoration: underline;
+        .preview-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -120,9 +115,8 @@
             <input type="password" id="password" placeholder="أدخل كلمة المرور">
         </div>
         <button onclick="login()">تسجيل الدخول</button>
-        <div class="activate-message">
-            لتنشيط الحساب يرجى مراسلتنا عبر الواتس
-            <a href="https://wa.me/966504854223" target="_blank">اضغط هنا</a>
+        <div class="preview-image">
+            <img src="photo.jpg" alt="صورة توضيحية للموقع">
         </div>
     </div>
 
