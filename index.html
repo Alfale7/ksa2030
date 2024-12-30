@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <script>
-        // تحقق مما إذا كان المستخدم مسجل الدخول
-        const isLoggedIn = localStorage.getItem('loggedIn');
+<script>
+    // تحقق مما إذا كان المستخدم مسجل الدخول
+    const isLoggedIn = localStorage.getItem('loggedIn');
 
-        // إذا لم يكن مسجل الدخول، إعادة التوجيه إلى صفحة تسجيل الدخول
-        if (!isLoggedIn) {
-            window.location.href = "login.html";
-        }
-    </script>
+    // إذا لم يكن مسجل الدخول، إعادة التوجيه إلى صفحة تسجيل الدخول
+    if (!isLoggedIn) {
+        window.location.href = "login.html";
+    }
+</script>
 
-    <meta property="og:title" content="معد التقارير">
-    <meta property="og:description" content="قم بإنشاء تقارير احترافية بكل سهولة!">
-    <meta property="og:image" content="https://www.ksa2030.life/photo.jpg">
-    <meta property="og:url" content="https://www.ksa2030.life">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="ar_AR">
+<meta property="og:title" content="معد التقارير">
+<meta property="og:description" content="قم بإنشاء تقارير احترافية بكل سهولة!">
+<meta property="og:image" content="https://www.ksa2030.life/photo.jpg">
+<meta property="og:url" content="https://www.ksa2030.life">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_AR">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مُعــــد التقارير الذكيــة</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مُعــــد التقارير الذكيــة</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        .logout-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: linear-gradient(to right, #46b39d, #103d5e);
-            color: white;
-            font-size: 1em;
-            font-weight: bold;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
+    .button-container {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 10px;
+    }
 
-        .logout-button:hover {
-            background: linear-gradient(to right, #103d5e, #46b39d);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transform: scale(1.05);
-        }
+    .button {
+        background: linear-gradient(to right, #46b39d, #103d5e);
+        color: white;
+        font-size: 1em;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
 
-        .logout-button:active {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transform: scale(0.95);
-        }
-    </style>
-</head>
-<body>
-    <!-- زر تسجيل الخروج -->
-    <button class="logout-button" onclick="logout()">تسجيل الخروج</button>
+    .button:hover {
+        background: linear-gradient(to right, #103d5e, #46b39d);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transform: scale(1.05);
+    }
 
-    <script>
-        function logout() {
-            sessionStorage.clear();
-            localStorage.clear();
-            window.location.href = "login.html";
-        }
-    </script>
-</body>
-</html>
+    .button:active {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transform: scale(0.95);
+    }
+</style>
+
+<!-- أزرار تسجيل الخروج والدخول -->
+<div class="button-container">
+    <button class="button" onclick="logout()">تسجيل الخروج</button>
+    <button class="button" onclick="login()">تسجيل الدخول</button>
+</div>
+
+<script>
+    function logout() {
+        sessionStorage.clear();
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+
+    function login() {
+        window.location.href = "login.html";
+    }
+</script>
 
 
-    font-family: Arial, sans-serif; /* أضف خطًا يدعم العربية إذا لزم الأمر */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background: linear-gradient(to bottom, #e6f7ff, #cceeff);
-}
 
 .container {
     width: 90%;
