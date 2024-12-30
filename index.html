@@ -332,11 +332,16 @@ body {
                 window.location.href = "login.html"; 
             });
 
-            // Check if the user is logged in
-            const isLoggedIn = localStorage.getItem('loggedIn');
-            if (!isLoggedIn) {
-                window.location.href = "login.html"; // Redirect to login if not logged in
-            }
+          <script>
+    // تحقق مما إذا كان المستخدم مسجل الدخول
+    const isLoggedIn = localStorage.getItem('loggedIn');
+
+    // إذا لم يكن مسجل الدخول، إعادة التوجيه إلى صفحة تسجيل الدخول
+    if (!isLoggedIn) {
+        window.location.href = "login.html";
+    }
+</script>
+
         });
 
         function updateRegion() {
