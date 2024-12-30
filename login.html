@@ -6,7 +6,7 @@
     <title>تسجيل الدخول</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -23,14 +23,27 @@
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .container h1 {
-            font-size: 1.8em;
+            font-size: 2em;
             color: #004965;
             margin-bottom: 20px;
+            font-weight: bold;
         }
 
         .form-group {
@@ -47,7 +60,7 @@
 
         .form-group input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             font-size: 1em;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -63,17 +76,19 @@
         button {
             width: 100%;
             padding: 12px;
-            font-size: 1.1em;
+            font-size: 1.2em;
             color: white;
-            background: #00a08c;
+            background: linear-gradient(to right, #004965, #00a08c);
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         button:hover {
-            background: #008b75;
+            background: linear-gradient(to right, #00a08c, #004965);
             transform: scale(1.05);
         }
 
@@ -89,6 +104,26 @@
 
         .alert.show {
             display: block;
+        }
+
+        .activate-message {
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: #004965;
+            background: #e6f7ff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .activate-message a {
+            color: #00a08c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .activate-message a:hover {
+            text-decoration: underline;
         }
 
         .preview-image {
@@ -115,6 +150,10 @@
             <input type="password" id="password" placeholder="أدخل كلمة المرور">
         </div>
         <button onclick="login()">تسجيل الدخول</button>
+        <div class="activate-message">
+            لتنشيط الحساب يرجى مراسلتنا عبر الواتس
+            <a href="https://wa.me/966504854223" target="_blank">اضغط هنا</a>
+        </div>
         <div class="preview-image">
             <img src="photo.jpg" alt="صورة توضيحية للموقع">
         </div>
