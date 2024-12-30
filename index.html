@@ -24,6 +24,47 @@
     <title>مُعــــد التقارير الذكيــة</title>
     <style>
 body {
+    <style>
+    .logout-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: linear-gradient(to right, #46b39d, #103d5e);
+        color: white;
+        font-size: 1em;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .logout-button:hover {
+        background: linear-gradient(to right, #103d5e, #46b39d);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transform: scale(1.05);
+    }
+
+    .logout-button:active {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transform: scale(0.95);
+    }
+</style>
+
+<!-- زر تسجيل الخروج -->
+<button class="logout-button" onclick="logout()">تسجيل الخروج</button>
+
+<script>
+    function logout() {
+        sessionStorage.clear();
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+</script>
+
     font-family: Arial, sans-serif; /* أضف خطًا يدعم العربية إذا لزم الأمر */
     margin: 0;
     padding: 0;
