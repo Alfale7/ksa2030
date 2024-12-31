@@ -154,6 +154,50 @@
     </style>
 </head>
 <body>
+<!-- الصق هذا الكود داخل وسم body -->
+<div id="welcome-message">
+    التقارير الذكية: ✨ تسهيلات مبتكرة للتعليم والتعلم. 📝 أنشئ تقاريرك بسهولة وسرعة، وودّع الحاجة للبرامج التقليدية. 🚀
+</div>
+
+<!-- الصق هذا الكود داخل وسم style -->
+<style>
+    #welcome-message {
+        position: fixed;
+        bottom: -50px; /* تبدأ خارج الشاشة */
+        left: 20px; /* جهة اليسار */
+        background: linear-gradient(45deg, #1A567E, #4CAF50);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        animation: slideIn 1s ease-out, fadeOut 5s ease-in-out forwards;
+        z-index: 1000;
+    }
+
+    @keyframes slideIn {
+        0% {
+            bottom: -50px; /* تبدأ خارج الشاشة */
+            opacity: 0;
+        }
+        100% {
+            bottom: 20px; /* تصل إلى الموقع النهائي */
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        0%, 80% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(20px); /* تتحرك قليلاً للخارج عند الاختفاء */
+        }
+    }
+</style>
+
     <div class="container">
         <h1>تسجيل الدخول</h1>
         <div class="alert" id="error">رقم الجوال أو كلمة المرور غير صحيحة</div>
@@ -172,6 +216,7 @@
         </div>
         <div class="preview-image">
             <img src="photo.jpg" alt="صورة توضيحية للموقع">
+
         </div>
     </div>
 
@@ -182,6 +227,7 @@
     "0506399549": "1234",
     "0503390971": "1122"
 };
+
 
 
         function login() {
