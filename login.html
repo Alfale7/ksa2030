@@ -170,10 +170,11 @@
     </div>
 
     <script>
-        const users = {
-            "0504854223": "1122",
-            "0506399549": "1234"
-        };
+  const users = {
+    "0504854223": "1122",
+    "0506399549": "1234",
+    "0503390971": "1122"
+};
 
         function login() {
             const phone = document.getElementById('phone').value.trim();
@@ -181,9 +182,13 @@
             const error = document.getElementById('error');
 
             if (users[phone] && users[phone] === password) {
-                localStorage.setItem('loggedIn', true);
-                window.location.href = "index.html";
+                // تخزين حالة تسجيل الدخول باستخدام المفتاح isLoggedIn
+                localStorage.setItem('isLoggedIn', true);
+                
+                // توجيه المستخدم إلى صفحة اختيار النماذج
+                window.location.href = 'choose_report.html';
             } else {
+                // إظهار رسالة خطأ إذا كان رقم الجوال أو كلمة المرور غير صحيحة
                 error.classList.add('show');
                 setTimeout(() => {
                     error.classList.remove('show');
