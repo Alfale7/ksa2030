@@ -492,40 +492,43 @@ body {
             <button class="download" onclick="downloadAsImage()">تحميل التقرير</button>
         </div>
     </div>
+<style>
+    /* تحسين موقع وتصميم الأزرار */
+    .action-buttons {
+        position: End;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* المسافة بين الأزرار */
+        z-index: 1000;
+    }
 
+    .action-buttons button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background: linear-gradient(45deg, #1A567E, #4CAF50);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .action-buttons button:hover {
+        background: linear-gradient(45deg, #144861, #3E8E41);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+</style>
+
+<div class="action-buttons">
     <!-- زر الرجوع إلى النماذج -->
-    <button class="back-button" onclick="location.href='choose_report.html'">الرجوع لاختيار نموذج ↪️</button>
+    <button onclick="location.href='choose_report.html'">الرجوع لاختيار نموذج ↪️</button>
 
     <!-- زر تسجيل الخروج -->
-    <button class="logout-button" onclick="location.href='login.html'">تسجيل الخروج 🚪</button>
-
-    <style>
-        .back-button, .logout-button {
-            position: stop;
-            bottom: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background: linear-gradient(45deg, #1A567E, #4CAF50);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s, box-shadow 0.2s;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-        .back-button:hover, .logout-button:hover {
-            background: linear-gradient(45deg, #144861, #3E8E41);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        .back-button {
-            left: 20xp;
-        }
-        .logout-button {
-            left: 150px;
-        }
-    </style>
-
-    </div>
+    <button onclick="location.href='login.html'">تسجيل الخروج 🚪</button>
+</div>
+    
 </body>
 </html>
