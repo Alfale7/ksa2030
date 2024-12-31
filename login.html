@@ -186,6 +186,8 @@
                 localStorage.setItem('isLoggedIn', true);
                 
                 // توجيه المستخدم إلى صفحة اختيار النماذج
+
+localStorage.setItem('userName', phone); // تخزين اسم المستخدم
                 window.location.href = 'choose_report.html';
             } else {
                 // إظهار رسالة خطأ إذا كان رقم الجوال أو كلمة المرور غير صحيحة

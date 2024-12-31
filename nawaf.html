@@ -72,6 +72,7 @@
             border: 1px solid #46b39d;
             border-radius: 5px;
             font-size: 0.85em;
+            font-weight: normal; /* إزالة الخط العريض */
             transition: border-color 0.3s, box-shadow 0.3s;
             box-sizing: border-box;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -221,25 +222,38 @@
 
         function downloadAsImage() {
             const container = document.querySelector('.container');
+            // إخفاء الأزرار عند تحميل التقرير
+            const buttons = document.querySelector('.buttons');
+            const backButton = document.querySelector('.back-button');
+            const logoutButton = document.querySelector('.logout-button');
+            buttons.style.display = 'none';
+            backButton.style.display = 'none';
+            logoutButton.style.display = 'none';
+
             html2canvas(container).then((canvas) => {
                 const link = document.createElement('a');
                 link.download = 'report.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
+
+                // إظهار الأزرار بعد التحميل
+                buttons.style.display = 'block';
+                backButton.style.display = 'block';
+                logoutButton.style.display = 'block';
             });
         }
     </script>
 </head>
 <body>
     <div class="container">
-     <div class="header">
-    <div class="text">
-        وزارة  التعليم<br>
-        الإدارة العامة للتعليم<br>
-        مكتب التعليم بمنطقة <input type="text" placeholder="اسم المنطقة" class="header-input">
-    </div>
-    <img src="logo.png" alt="شعار وزارة التعليم" class="logo">
-</div>
+        <div class="header">
+            <div class="text">
+                وزارة التعليم<br>
+                الإدارة العامة للتعليم<br>
+                مكتب التعليم بمنطقة <input type="text" placeholder="اسم المنطقة" class="header-input">
+            </div>
+            <img src="logo.png" alt="شعار وزارة التعليم" class="logo">
+        </div>
 
         <div class="fields">
             <div class="field">
@@ -252,9 +266,9 @@
                 <input type="text" id="location" placeholder="مكان التنفيذ">
             </div>
 
-             <div class="field">
+            <div class="field">
                 <label for="location">وصف البرنامج:</label>
-                <input type="text" id="location" placeholder="أكتب الوصف">
+                <input type="text" id="description" placeholder="أكتب الوصف">
             </div>
 
             <div class="field">
@@ -264,7 +278,7 @@
 
             <div class="field">
                 <label for="date">تاريخ التنفيذ:</label>
-                <input type="date" id="date">
+                <input type="date" id="date" style="width: 100%; padding: 6px; font-size: 0.85em;">
             </div>
 
             <div class="field">
@@ -303,17 +317,13 @@
         <div class="buttons">
             <button class="download" onclick="downloadAsImage()">تحميل التقرير</button>
         </div>
-<body>
-
-
-    <!-- باقي محتوى الصفحة -->
-</body>
+    </div>
 
     <!-- زر الرجوع إلى النماذج -->
     <button class="back-button" onclick="location.href='choose_report.html'">الرجوع لاختيار نموذج ↪️</button>
 
     <!-- زر تسجيل الخروج -->
- <button class="logout-button" onclick="location.href='login.html'">تسجيل الخروج 🚪</button>
+    <button class="logout-button" onclick="location.href='login.html'">تسجيل الخروج 🚪</button>
 
     <style>
         .back-button, .logout-button {
@@ -335,16 +345,11 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
         .back-button {
-            left: 20px;
+            left: 20xp;
         }
         .logout-button {
             left: 150px;
         }
     </style>
-</body>
-
-
-
-</style>
 </body>
 </html>

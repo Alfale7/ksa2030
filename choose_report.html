@@ -63,6 +63,9 @@
 </head>
 <body>
 
+<div id="welcome-message" style="display: none; padding: 10px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px; margin: 10px 0;">
+    مرحبًا بك، <span id="user-name"></span>! 🎉
+</div>
 
     <h1>اختر نموذج التقرير</h1>
     <div class="container">
@@ -77,5 +80,24 @@
             <button onclick="location.href='nawaf.html'">النموذج الأول</button>
         </div>
     </div>
+
+<script>
+window.onload = function () {
+    // التحقق من تسجيل الدخول
+    if (localStorage.getItem('isLoggedIn')) {
+        const userName = localStorage.getItem('userName'); // استرجاع اسم المستخدم
+        const welcomeMessage = document.getElementById('welcome-message');
+        const userNameSpan = document.getElementById('user-name');
+
+        // عرض رسالة الترحيب مع اسم المستخدم
+        userNameSpan.textContent = userName;
+        welcomeMessage.style.display = 'block';
+    } else {
+        // إذا لم يتم تسجيل الدخول، إعادة التوجيه إلى صفحة تسجيل الدخول
+        window.location.href = 'login.html';
+    }
+};
+</script>
+
 </body>
 </html>
