@@ -1,0 +1,81 @@
+/* تحسين الأزرار */
+button {
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: #5a5a5a; /* لون عند التمرير */
+    color: #ffffff; /* لون النص عند التمرير */
+}
+
+/* تحسين تصميم الشواهد */
+.shahid {
+    margin: 10px; /* إضافة مسافة بين الشواهد */
+    border-radius: 8px; /* جعل الحواف مستديرة */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.shahid:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* تعزيز الظل عند التمرير */
+}
+
+
+.shahid {
+    border: 1px solid #46b39d;
+    border-radius: 5px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(to bottom, #103d5e, #46b39d);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.add-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.delete-button {
+    position: absolute;
+    top: -10px; /* يمكنك تغيير القيمة لتناسب التصميم */
+    right: 10px; /* يحافظ على مكان الزر في الزاوية اليمنى */
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 10; /* للتأكد من أن الزر يظهر فوق العناصر الأخرى */
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
