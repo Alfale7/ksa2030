@@ -231,9 +231,9 @@
     // إعداد الحقول لمحاذاة النص إلى اليمين وإخفاء الحواف
     const inputs = container.querySelectorAll('input, textarea');
     inputs.forEach(input => {
-        input.style.textAlign = 'right'; // محاذاة النص لليمين
-        input.style.border = 'none'; // إزالة الحواف
-        input.style.boxShadow = 'none'; // إزالة الظلال
+        input.style.textAlign = 'stop'; // محاذاة النص لليمين
+        input.style.border = 'stop'; // إزالة الحواف
+        input.style.boxShadow = 'stop'; // إزالة الظلال
     });
 
     // إخفاء الأزرار قبل التحميل
@@ -261,7 +261,7 @@
         });
 
         // إعادة إظهار الأزرار بعد التحميل
-        if (buttons) buttons.style.display = 'block';
+        if (buttons) buttons.style.display = 'stop';
         if (actionButtons) actionButtons.style.display = 'stop';
     }).catch((error) => {
         console.error('حدث خطأ أثناء تحميل التقرير:', error);
@@ -273,7 +273,7 @@
             input.style.border = ''; // إعادة الحواف
             input.style.boxShadow = ''; // إعادة الظلال
         });
-        if (buttons) buttons.style.display = 'block';
+        if (buttons) buttons.style.display = 'stop';
         if (actionButtons) actionButtons.style.display = 'stop';
     });
 }
