@@ -163,7 +163,7 @@
 <style>
     #welcome-message {
         position: fixed;
-        bottom: -50px; /* تبدأ خارج الشاشة */
+        bottom: 80px; /* مكان مريح للقراءة */
         left: 20px; /* جهة اليسار */
         background: linear-gradient(45deg, #1A567E, #4CAF50);
         color: white;
@@ -174,15 +174,18 @@
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         animation: slideIn 1s ease-out, fadeOut 5s ease-in-out forwards;
         z-index: 1000;
+        max-width: 300px; /* عرض مناسب */
+        line-height: 1.5; /* تحسين المسافات بين الأسطر */
+        text-align: center; /* تحسين العرض */
     }
 
     @keyframes slideIn {
         0% {
-            bottom: -50px; /* تبدأ خارج الشاشة */
+            bottom: 30px; /* تبدأ من مكان منخفض قليلاً */
             opacity: 0;
         }
         100% {
-            bottom: 20px; /* تصل إلى الموقع النهائي */
+            bottom: 80px; /* تصل إلى موقع مريح للقراءة */
             opacity: 1;
         }
     }
@@ -193,7 +196,7 @@
         }
         100% {
             opacity: 0;
-            transform: translateY(20px); /* تتحرك قليلاً للخارج عند الاختفاء */
+            transform: translateY(20px); /* تتحرك قليلاً للأسفل عند الاختفاء */
         }
     }
 </style>
