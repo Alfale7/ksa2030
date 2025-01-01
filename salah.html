@@ -221,27 +221,33 @@
             }
         }
 
-function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر المراد تحميله
+     function downloadAsImage() {
+    const container = document.querySelector('.container');
     if (!container) {
-        alert('العنصر غير موجود في الصفحة');
+        alert('العنصر غير موجود');
         return;
     }
 
-    // إخفاء الأزرار قبل التحميل
-    const buttons = document.querySelector('.buttons');
-    const backButton = document.querySelector('.back-button');
-    const logoutButton = document.querySelector('.logout-button');
-    if (buttons) buttons.style.display = 'none';
-    if (backButton) backButton.style.display = 'none';
-    if (logoutButton) logoutButton.style.display = 'none';
-
-    // تعديل الحقول قبل التحويل
+    // نسخ النصوص من الحقول إلى عناصر نصية
     const inputs = container.querySelectorAll('input, textarea');
     inputs.forEach(input => {
-        input.style.border = 'none'; // إزالة الحواف
-        input.style.boxShadow = 'none'; // إزالة الظلال
-        input.style.textAlign = 'right'; // محاذاة النص لليمين
+        const textSpan = document.createElement('span');
+        textSpan.style.position = 'absolute';
+        textSpan.style.left = `${input.offsetLeft}px`;
+        textSpan.style.top = `${input.offsetTop}px`;
+        textSpan.style.width = `${input.offsetWidth}px`;
+        textSpan.style.height = `${input.offsetHeight}px`;
+        textSpan.style.fontSize = window.getComputedStyle(input).fontSize;
+        textSpan.style.fontFamily = window.getComputedStyle(input).fontFamily;
+        textSpan.style.lineHeight = window.getComputedStyle(input).lineHeight;
+        textSpan.style.textAlign = "right"; // محاذاة النص لليمين
+        textSpan.style.color = '#000';
+        textSpan.style.display = 'flex';
+        textSpan.style.alignItems = 'center';
+        textSpan.style.justifyContent = 'flex-start'; // ضمان المحاذاة لليمين
+        textSpan.textContent = input.value; // نص الحقل
+        textSpan.className = 'temp-span'; // لتحديد العناصر المؤقتة لاحقًا
+        container.appendChild(textSpan);
     });
 
     // تحويل العنصر إلى صورة باستخدام html2canvas
