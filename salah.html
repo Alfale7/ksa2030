@@ -324,41 +324,69 @@
 <div class="buttons">
     <button class="download" onclick="downloadAsImage()">تحميل التقرير</button>
 </div>
-    </div>
 <style>
-
-function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر المراد تحميله
-    if (!container) {
-        alert('العنصر غير موجود في الصفحة');
-        return;
+    /* تحسين موقع وتصميم الأزرار */
+    .action-buttons {
+        position: End;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* المسافة بين الأزرار */
+        z-index: 1000;
     }
 
-    // إخفاء الأزرار قبل التحميل
-    const buttons = document.querySelector('.buttons');
-    const actionButtons = document.querySelector('.action-buttons');
-    if (buttons) buttons.style.display = 'none';
-    if (actionButtons) actionButtons.style.display = 'none';
+    .action-buttons button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background: linear-gradient(45deg, #1A567E, #4CAF50);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
 
-    // تحويل العنصر إلى صورة باستخدام html2canvas
-    html2canvas(container, {
-        scale: 2, // لتحسين جودة الصورة
-        useCORS: true, // لتفادي مشاكل الصور الخارجية
-        backgroundColor: '#ffffff' // خلفية بيضاء للصورة
-    }).then((canvas) => {
-        const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف عند التنزيل
-        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
-        link.click();
+    .action-buttons button:hover {
+        background: linear-gradient(45deg, #144861, #3E8E41);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+</style>
+<script>
+    function downloadAsImage() {
+        const container = document.querySelector('.container'); // العنصر المراد تحميله
+        if (!container) {
+            alert('العنصر غير موجود في الصفحة');
+            return;
+        }
 
-        // إعادة إظهار الأزرار بعد التحميل
-        if (buttons) buttons.style.display = 'block';
-        if (actionButtons) actionButtons.style.display = 'flex';
-    }).catch((error) => {
-        console.error('حدث خطأ أثناء تحميل التقرير:', error);
-        alert('حدث خطأ أثناء تحميل التقرير.');
-    });
-}
+        // إخفاء الأزرار قبل التحميل
+        const buttons = document.querySelector('.buttons');
+        const actionButtons = document.querySelector('.action-buttons');
+        if (buttons) buttons.style.display = 'none';
+        if (actionButtons) actionButtons.style.display = 'none';
+
+        // تحويل العنصر إلى صورة باستخدام html2canvas
+        html2canvas(container, {
+            scale: 2, // لتحسين جودة الصورة
+            useCORS: true, // لتفادي مشاكل الصور الخارجية
+            backgroundColor: '#ffffff' // خلفية بيضاء للصورة
+        }).then((canvas) => {
+            const link = document.createElement('a');
+            link.download = 'report.png'; // اسم الملف عند التنزيل
+            link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
+            link.click();
+
+            // إعادة إظهار الأزرار بعد التحميل
+            if (buttons) buttons.style.display = 'block';
+            if (actionButtons) actionButtons.style.display = 'flex';
+        }).catch((error) => {
+            console.error('حدث خطأ أثناء تحميل التقرير:', error);
+            alert('حدث خطأ أثناء تحميل التقرير.');
+        });
+    }
+
 
     /* تحسين موقع وتصميم الأزرار */
     .action-buttons {
@@ -387,6 +415,7 @@ function downloadAsImage() {
         background: linear-gradient(45deg, #144861, #3E8E41);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
+</script>
 </style>
 
 <div class="action-buttons">
