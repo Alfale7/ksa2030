@@ -411,6 +411,58 @@
         });
     }
 
+
+function toggleFileInput(id) {
+    const fileInput = document.getElementById(id);
+    if (fileInput) {
+        fileInput.click(); // فتح نافذة اختيار الملفات
+    } else {
+        console.error(`Element with id "${id}" not found.`);
+    }
+}
+
+function displayImage(event, id) {
+    const file = event.target.files[0];
+    if (!file) {
+        console.warn("No file selected.");
+        return;
+    }
+
+    // تحقق من نوع الملف المدعوم (صور فقط)
+    const validTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!validTypes.includes(file.type)) {
+        alert("يرجى اختيار ملف صورة فقط (JPEG, PNG, GIF).");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const targetElement = document.querySelector(`#${id} img`);
+        if (targetElement) {
+            targetElement.src = e.target.result; // تحديث مصدر الصورة
+            targetElement.parentElement.classList.add('active'); // إضافة تنسيق عند إضافة الصورة
+        } else {
+            console.error(`Element with id "${id}" or child <img> not found.`);
+        }
+    };
+    reader.readAsDataURL(file); // قراءة الملف كـ Base64
+}
+
+// تحسين مرونة الكود باستخدام اختيار العناصر بطريقة عامة
+function initializeFileInputs() {
+    document.querySelectorAll(".file-input").forEach((input) => {
+        input.addEventListener("change", (event) => {
+            const id = event.target.dataset.target; // استهداف العنصر باستخدام خاصية data-target
+            displayImage(event, id);
+        });
+    });
+}
+
+// التأكد من تنفيذ الكود عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", () => {
+    initializeFileInputs();
+});
+
 </script>
 <div class="action-buttons">
     <!-- زر الرجوع إلى النماذج -->
