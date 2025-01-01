@@ -491,13 +491,12 @@ body {
 </div>
 
 
+
                 </div>
             </div>
         </div>
 
-        <div class="buttons">
-            <button class="download" onclick="downloadAsImage()">تحميل التقرير</button>
-        </div>
+
     </div>
 <style>
     /* تحسين موقع وتصميم الأزرار */
@@ -528,13 +527,16 @@ body {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
 </style>
-
-<div class="action-buttons">
-    <!-- زر الرجوع إلى النماذج -->
-    <button onclick="location.href='choose_report.html'">الرجوع لاختيار نموذج ↪️</button>
-
-    <!-- زر تسجيل الخروج -->
-    <button onclick="location.href='login.html'">تسجيل الخروج 🚪</button>
+<div class="buttons" style="display: flex; justify-content: space-between; margin-top: 20px;">
+    <button class="logout" onclick="location.href='login.html'" style="padding: 10px 20px; background-color: #1e5a6a; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        تسجيل الخروج
+    </button>
+    <button class="back" onclick="location.href='choose_report.html'" style="padding: 10px 20px; background-color: #1e5a6a; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        الرجوع لاختيار نموذج
+    </button>
+    <button class="download" onclick="downloadAsImage()" style="padding: 10px 20px; background-color: #1e5a6a; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        تحميل التقرير
+    </button>
 </div>
  
 <!-- ربط ملف JavaScript -->
