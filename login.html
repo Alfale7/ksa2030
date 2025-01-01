@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُعــد التقارير</title>
+
+
+    <!-- Meta Tags لإظهار الصورة والمعلومات عند مشاركة الرابط -->
+    <meta property="og:title" content="معد التقارير">
+    <meta property="og:description" content="قم بإنشاء تقارير احترافية بكل سهولة!">
+    <meta property="og:image" content="https://www.ksa2030.life/photo.jpg">
+    <meta property="og:url" content="https://www.ksa2030.life">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <!-- نهاية Meta Tags -->
+    <style>
+
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom right, #004965, #00a08c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 380px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container h1 {
+            font-size: 1.8em;
+            color: #004965;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9em;
+            color: #004965;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 0.9em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #00a08c;
+            box-shadow: 0 0 8px rgba(0, 160, 140, 0.5);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            color: white;
+            background: linear-gradient(to right, #004965, #00a08c);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #00a08c, #004965);
+            transform: scale(1.05);
+        }
+
+        .alert {
+            display: none;
+            padding: 10px;
+            margin-bottom: 15px;
+            color: white;
+            background: #dc3545;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .activate-message {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #004965;
+            background: #e6f7ff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .activate-message a {
+            color: #00a08c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .activate-message a:hover {
+            text-decoration: underline;
+        }
+
+        .preview-image {
+            margin-top: 15px;
+        }
+
+        .preview-image img {
+            width: 80%;
+            max-height: 280px;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+<!-- ربط ملف CSS -->
+<link rel="stylesheet" href="Css/style.css">
+
+</head>
+<body>
+<!-- الصق هذا الكود داخل وسم body -->
+<div id="welcome-message">
+    التقارير الذكية: ✨ تسهيلات مبتكرة للتعليم والتعلم. 📝 أنشئ تقاريرك بسهولة وسرعة، وودّع الحاجة للبرامج التقليدية. 🚀
+</div>
+
+<!-- الصق هذا الكود داخل وسم style -->
+<style>
+    #welcome-message {
+        position: fixed;
+        bottom: 80px; /* مكان مريح للقراءة */
+        left: 20px; /* جهة اليسار */
+        background: linear-gradient(45deg, #1A567E, #4CAF50);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        animation: slideIn 1s ease-out, fadeOut 5s ease-in-out forwards;
+        z-index: 1000;
+        max-width: 300px; /* عرض مناسب */
+        line-height: 1.5; /* تحسين المسافات بين الأسطر */
+        text-align: center; /* تحسين العرض */
+    }
+
+    @keyframes slideIn {
+        0% {
+            bottom: 30px; /* تبدأ من مكان منخفض قليلاً */
+            opacity: 0;
+        }
+        100% {
+            bottom: 80px; /* تصل إلى موقع مريح للقراءة */
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        0%, 80% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(20px); /* تتحرك قليلاً للأسفل عند الاختفاء */
+        }
+    }
+</style>
+
+    <div class="container">
+        <h1>تسجيل الدخول</h1>
+        <div class="alert" id="error">رقم الجوال أو كلمة المرور غير صحيحة</div>
+        <div class="form-group">
+            <label for="phone">رقم الجوال</label>
+            <input type="tel" id="phone" placeholder="أدخل رقم الجوال" pattern="[0-9]*" inputmode="numeric">
+        </div>
+        <div class="form-group">
+            <label for="password">كلمة المرور</label>
+            <input type="password" id="password" placeholder="أدخل كلمة المرور">
+        </div>
+        <button onclick="login()">تسجيل الدخول</button>
+        <div class="activate-message">
+            للإشتراك وتنشيط الحساب يرجى مراسلتنا عبر الواتس
+            <a href="https://wa.me/966504854223" target="_blank">اضغط هنا</a>
+        </div>
+        <div class="preview-image">
+            <img src="photo.jpg" alt="صورة توضيحية للموقع">
+
+        </div>
+    </div>
+
+    <script>
+  const users = {
+
+    "0504854223": "1122",
+    "0506399549": "1234",
+    "0503390971": "1122"
+};
+
+
+
+        function login() {
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const error = document.getElementById('error');
+
+            if (users[phone] && users[phone] === password) {
+                // تخزين حالة تسجيل الدخول باستخدام المفتاح isLoggedIn
+                localStorage.setItem('isLoggedIn', true);
+                
+                // توجيه المستخدم إلى صفحة اختيار النماذج
+
+localStorage.setItem('userName', phone); // تخزين اسم المستخدم
+                window.location.href = 'choose_report.html';
+            } else {
+                // إظهار رسالة خطأ إذا كان رقم الجوال أو كلمة المرور غير صحيحة
+                error.classList.add('show');
+                setTimeout(() => {
+                    error.classList.remove('show');
+                }, 3000);
+            }
+        }
+    </script>
+
+<!-- ربط ملف JavaScript -->
+<script src="java/script.js"></script>
+
+</body>
+</html>
