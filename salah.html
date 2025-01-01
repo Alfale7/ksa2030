@@ -221,28 +221,82 @@
             }
         }
 
-        function downloadAsImage() {
-            const container = document.querySelector('.container');
-            // إخفاء الأزرار عند تحميل التقرير
-            const buttons = document.querySelector('.buttons');
-            const backButton = document.querySelector('.back-button');
-            const logoutButton = document.querySelector('.logout-button');
-            buttons.style.display = 'none';
-            backButton.style.display = 'none';
-            logoutButton.style.display = 'none';
+function downloadAsImage() {
+    const container = document.querySelector('.container');
+    if (!container) {
+        alert('العنصر غير موجود');
+        return;
+    }
 
-            html2canvas(container).then((canvas) => {
-                const link = document.createElement('a');
-                link.download = 'report.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+    // إخفاء الأزرار قبل التحميل
+    const buttons = document.querySelector('.buttons');
+    const backButton = document.querySelector('.back-button');
+    const logoutButton = document.querySelector('.logout-button');
+    if (buttons) buttons.style.display = 'none';
+    if (backButton) backButton.style.display = 'none';
+    if (logoutButton) logoutButton.style.display = 'none';
 
-                // إظهار الأزرار بعد التحميل
-                buttons.style.display = 'block';
-                backButton.style.display = 'block';
-                logoutButton.style.display = 'block';
-            });
-        }
+    // نسخ النصوص من الحقول إلى عناصر نصية مع إخفاء الحواف
+    const inputs = container.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        const textSpan = document.createElement('span');
+        textSpan.style.position = 'absolute';
+        textSpan.style.left = `${input.offsetLeft}px`;
+        textSpan.style.top = `${input.offsetTop}px`;
+        textSpan.style.width = `${input.offsetWidth}px`;
+        textSpan.style.height = `${input.offsetHeight}px`;
+        textSpan.style.fontSize = window.getComputedStyle(input).fontSize;
+        textSpan.style.fontFamily = window.getComputedStyle(input).fontFamily;
+        textSpan.style.lineHeight = window.getComputedStyle(input).lineHeight;
+        textSpan.style.textAlign = "right"; // محاذاة النص لليمين
+        textSpan.style.direction = "rtl"; // دعم النصوص العربية
+        textSpan.style.color = '#000';
+        textSpan.style.display = 'flex';
+        textSpan.style.alignItems = 'center';
+        textSpan.style.justifyContent = 'flex-end'; // محاذاة النص لليمين داخل الحقل
+        textSpan.textContent = input.value; // نسخ النص المدخل
+        textSpan.className = 'temp-span'; // لتحديد العناصر المؤقتة
+        container.appendChild(textSpan);
+
+        // إزالة الحواف من الحقول
+        input.style.border = 'none';
+        input.style.boxShadow = 'none';
+        input.style.background = 'transparent';
+    });
+
+    // إخفاء الحقول النصية أثناء التحويل
+    inputs.forEach(input => input.style.visibility = 'hidden');
+
+    // تحويل التقرير إلى صورة باستخدام html2canvas
+    html2canvas(container, {
+        scale: 3, // لتحسين الدقة
+        useCORS: true, // لتفادي مشاكل الصور الخارجية
+        backgroundColor: '#ffffff', // تعيين خلفية بيضاء
+    }).then((canvas) => {
+        const link = document.createElement('a');
+        link.download = 'report.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        // إعادة الحقول والنصوص إلى وضعها الطبيعي
+        inputs.forEach(input => input.style.visibility = 'visible');
+        inputs.forEach(input => {
+            input.style.border = ''; // إعادة الحواف إلى الحقول
+            input.style.boxShadow = ''; // إعادة الظلال
+            input.style.background = ''; // إعادة الخلفية
+        });
+        const tempSpans = container.querySelectorAll('.temp-span');
+        tempSpans.forEach(span => span.remove());
+        
+        // إعادة إظهار الأزرار بعد التحميل
+        if (buttons) buttons.style.display = 'block';
+        if (backButton) backButton.style.display = 'block';
+        if (logoutButton) logoutButton.style.display = 'block';
+    }).catch((error) => {
+        console.error('حدث خطأ أثناء تحميل التقرير:', error);
+        alert('حدث خطأ أثناء تحميل التقرير.');
+    });
+}
     </script>
 </head>
 <body>
