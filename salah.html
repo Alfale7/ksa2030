@@ -278,6 +278,11 @@
     });
 }
     </script>
+
+<!-- ربط ملف CSS -->
+<link rel="stylesheet" href="Css/style.css">
+
+
 </head>
 <body>
     <div class="container">
@@ -301,10 +306,6 @@
                 <input type="text" id="location" placeholder="مكان التنفيذ">
             </div>
 
-            <div class="field">
-                <label for="location">وصف البرنامج:</label>
-                <input type="text" id="description" placeholder="أكتب الوصف">
-            </div>
 
             <div class="field">
                 <label for="beneficiaries">المستفيدون:</label>
@@ -322,22 +323,38 @@
             </div>
 
             <div class="field">
+                <label for="objectives">وصف البرنامج:</label>
+                <textarea id="objectives" rows="4" placeholder="أكتب الوصف هنا..."></textarea>
+            </div>
+
+           <div class="field">
                 <label for="objectives">الأهداف:</label>
                 <textarea id="objectives" rows="4" placeholder="اكتب الأهداف هنا..."></textarea>
             </div>
+
         </div>
 
-        <div class="shahid-section">
-            <h3>الشواهد ⤵️</h3>
-            <div class="shahid-grid">
-                <div id="shahid1" class="shahid" onclick="toggleFileInput('shahid1Input')">
-                    <input type="file" id="shahid1Input" accept="image/*" onchange="displayImage(event, 'shahid1')">
-                    <img src="" alt="">
-                </div>
-                <div id="shahid2" class="shahid" onclick="toggleFileInput('shahid2Input')">
-                    <input type="file" id="shahid2Input" accept="image/*" onchange="displayImage(event, 'shahid2')">
-                    <img src="" alt="">
-                </div>
+
+
+
+<div class="shahid-section">
+    <h3>الشواهد ⤵️</h3>
+    <div id="shahid-grid" class="shahid-grid">
+        <!-- شاهد 1 -->
+        <div class="shahid" id="shahid1" onclick="toggleFileInput('shahid1Input')">
+            <input type="file" id="shahid1Input" accept="image/*" onchange="displayImage(event, 'shahid1')">
+            <img src="" alt="شاهد 1">
+            <button class="remove-btn" onclick="removeShahid('shahid1')">حذف</button>
+        </div>
+        <!-- شاهد 2 -->
+        <div class="shahid" id="shahid2" onclick="toggleFileInput('shahid2Input')">
+            <input type="file" id="shahid2Input" accept="image/*" onchange="displayImage(event, 'shahid2')">
+            <img src="" alt="شاهد 2">
+            <button class="remove-btn" onclick="removeShahid('shahid2')">حذف</button>
+        </div>
+    </div>
+    <button class="add-btn" onclick="addShahid()">إضافة شاهد جديد</button>
+</div>
 
                 </div>
             </div>
@@ -471,5 +488,11 @@ document.addEventListener("DOMContentLoaded", () => {
     <!-- زر تسجيل الخروج -->
     <button onclick="location.href='login.html'">تسجيل الخروج 🚪</button>
 </div>
+
+<!-- ربط ملف JavaScript -->
+<script src="java/script.js"></script>
+
+<canvas id="background"></canvas>
+
 </body>
 </html>
