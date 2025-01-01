@@ -315,14 +315,13 @@
             </div>
         </div>
 
-        <div class="buttons">
-            <button class="download" onclick="downloadAsImage()">تحميل التقرير</button>
-        </div>
-    </div>
+      <div class="buttons">
+    <button class="download" onclick="downloadAsImage()">تحميل التقرير</button>
+</div>
 <style>
     /* تحسين موقع وتصميم الأزرار */
     .action-buttons {
-        position: End;
+        position: stop;
         bottom: 20px;
         right: 20px;
         display: flex;
@@ -348,7 +347,42 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+    function downloadAsImage() {
+        // التحقق من وجود العنصر
+        const container = document.querySelector('.container'); // العنصر المراد تحميله
+        if (!container) {
+            alert('العنصر .container غير موجود في الصفحة!');
+            return;
+        }
 
+        // إخفاء الأزرار قبل التحميل
+        const buttons = document.querySelector('.buttons');
+        const actionButtons = document.querySelector('.action-buttons');
+        if (buttons) buttons.style.display = 'none';
+        if (actionButtons) actionButtons.style.display = 'none';
+
+        // محاولة تحميل التقرير باستخدام html2canvas
+        html2canvas(container, {
+            scale: 2, // لتحسين جودة الصورة
+            useCORS: true, // لتفادي مشاكل الصور الخارجية
+            backgroundColor: '#ffffff' // خلفية بيضاء للصورة
+        }).then((canvas) => {
+            const link = document.createElement('a');
+            link.download = 'report.png'; // اسم الملف عند التنزيل
+            link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
+            link.click();
+
+            // إعادة إظهار الأزرار بعد التحميل
+            if (buttons) buttons.style.display = 'block';
+            if (actionButtons) actionButtons.style.display = 'flex';
+        }).catch((error) => {
+            console.error('حدث خطأ أثناء تحميل التقرير:', error);
+            alert('حدث خطأ أثناء تحميل التقرير. الرجاء المحاولة لاحقًا.');
+        });
+    }
+</script>
 <div class="action-buttons">
     <!-- زر الرجوع إلى النماذج -->
     <button onclick="location.href='choose_report.html'">الرجوع لاختيار نموذج ↪️</button>
