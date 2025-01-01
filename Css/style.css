@@ -79,3 +79,36 @@ button:hover {
 .delete-button:hover {
     background-color: darkred;
 }
+
+
+button {
+    background: linear-gradient(45deg, #0D2F3B, #1E5A6A); /* استبدل بالألوان التي تناسبك */
+    color: white; /* لون النص */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #1E5A6A, #0D2F3B); /* لون عند التمرير */
+    transform: scale(1.05); /* تكبير خفيف عند التمرير */
+}
+
+
+..button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 80xp;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #1e5a6a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
