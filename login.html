@@ -228,53 +228,58 @@
 </a>
 </div>
 
-        <div class="alert" id="error">رقم الجوال أو كلمة المرور غير صحيحة</div>
-        <div class="form-group">
-            <label for="phone">رقم الجوال</label>
-            <input type="tel" id="phone" placeholder="أدخل رقم الجوال" pattern="[0-9]*" inputmode="numeric">
-        </div>
-        <div class="form-group">
-            <label for="password">كلمة المرور</label>
-            <input type="password" id="password" placeholder="أدخل كلمة المرور">
-        </div>
-        <button onclick="login()">تسجيل الدخول</button>
 
 
+<div class="alert" id="error" style="display: none; color: red;">رقم الجوال أو كلمة المرور غير صحيحة</div>
+<div class="form-group">
+    <label for="phone">رقم الجوال</label>
+    <input type="tel" id="phone" placeholder="أدخل رقم الجوال" pattern="[0-9]*" inputmode="numeric">
+</div>
+<div class="form-group">
+    <label for="password">كلمة المرور</label>
+    <input type="password" id="password" placeholder="أدخل كلمة المرور">
+</div>
+<button onclick="login()">تسجيل الدخول</button>
 
-    <script>
- 
+<script>
+    let users = {};
 
+    // تحميل البيانات من ملف user.json
+    fetch('user.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load user.json');
+            }
+            return response.json();
+        })
+        .then(data => {
+            users = data; // تخزين البيانات في الكائن users
+        })
+        .catch(error => console.error('Error loading users:', error));
 
+    function login() {
+        const phone = document.getElementById('phone').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const error = document.getElementById('error');
 
-let users = {};
-
-// تحميل البيانات من ملف user.json
-fetch('user.json')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to load user.json');
+        // التحقق من أن الحقول ليست فارغة
+        if (!phone || !password) {
+            error.textContent = "يرجى تعبئة جميع الحقول.";
+            error.style.display = "block";
+            return;
         }
-        return response.json();
-    })
-    .then(data => {
-        users = data; // تخزين البيانات في الكائن users
-    })
-    .catch(error => console.error('Error loading users:', error));
 
-function login() {
-    const phone = document.getElementById('phone').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const error = document.getElementById('error');
-
-    // التحقق من بيانات تسجيل الدخول
-    if (users[phone] && users[phone] === password) {
-        localStorage.setItem('isLoggedIn', true);
-        localStorage.setItem('userName', phone);
-        window.location.href = 'choose_report.html'; // توجيه المستخدم إلى الصفحة التالية
-    } else {
-        alert('خطأ في رقم الجوال أو كلمة المرور.');
+        // التحقق من بيانات تسجيل الدخول
+        if (users[phone] && users[phone] === password) {
+            localStorage.setItem('isLoggedIn', true);
+            localStorage.setItem('userName', phone);
+            window.location.href = 'choose_report.html'; // توجيه المستخدم إلى الصفحة التالية
+        } else {
+            error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
+            error.style.display = "block";
+        }
     }
-}
+</script>
 
 
 
