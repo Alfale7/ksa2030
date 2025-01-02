@@ -242,37 +242,41 @@
 
 
     <script>
-  const users = {
-
-    "0504854223": "1122",
-    "0506399549": "1234",
-    "0503390971": "1122"
-};
+ 
 
 
 
-        function login() {
-            const phone = document.getElementById('phone').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const error = document.getElementById('error');
+let users = {};
 
-            if (users[phone] && users[phone] === password) {
-                // تخزين حالة تسجيل الدخول باستخدام المفتاح isLoggedIn
-                localStorage.setItem('isLoggedIn', true);
-                
-                // توجيه المستخدم إلى صفحة اختيار النماذج
-
-localStorage.setItem('userName', phone); // تخزين اسم المستخدم
-                window.location.href = 'choose_report.html';
-            } else {
-                // إظهار رسالة خطأ إذا كان رقم الجوال أو كلمة المرور غير صحيحة
-                error.classList.add('show');
-                setTimeout(() => {
-                    error.classList.remove('show');
-                }, 3000);
-            }
+// تحميل البيانات من ملف user.json
+fetch('user.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to load user.json');
         }
-    </script>
+        return response.json();
+    })
+    .then(data => {
+        users = data; // تخزين البيانات في الكائن users
+    })
+    .catch(error => console.error('Error loading users:', error));
+
+function login() {
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const error = document.getElementById('error');
+
+    // التحقق من بيانات تسجيل الدخول
+    if (users[phone] && users[phone] === password) {
+        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('userName', phone);
+        window.location.href = 'choose_report.html'; // توجيه المستخدم إلى الصفحة التالية
+    } else {
+        alert('خطأ في رقم الجوال أو كلمة المرور.');
+    }
+}
+
+
 
 <!-- ربط ملف JavaScript -->
 <script src="java/script.js"></script>
