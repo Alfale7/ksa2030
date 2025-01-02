@@ -21,6 +21,7 @@
     <style>
 
 
+
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -153,11 +154,18 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
+
+
+
     </style>
 
 
 </head>
 <body>
+
+
+
 <!-- الصق هذا الكود داخل وسم body -->
 <div id="welcome-message">
     التقارير الذكية: ✨ تسهيلات مبتكرة للتعليم والتعلم. 📝 أنشئ تقاريرك بسهولة وسرعة، وودّع الحاجة للبرامج التقليدية. 🚀
@@ -205,8 +213,21 @@
     }
 </style>
 
+
+<body style="margin: 0; padding: 0; box-sizing: border-box; background: linear-gradient(to bottom right, #004965, #00a08c); display: flex; justify-content: center; align-items: flex-start; height: 100vh;">
     <div class="container">
-        <h1>تسجيل الدخول</h1>
+       
+
+<div style="text-align: center; margin-bottom: 20px;">
+    <p style="font-size: 18px; color: #333;">
+        📩 تواصل معنا الآن لتفعيل حسابك وتسجيل رقم جوالك للحصول على كلمة المرور الخاصة بموقع التقارير الذكية 📝🔑.
+        <br>ابدأ رحلتك نحو تقارير أكثر احترافية وتنظيماً بسهولة وسرعة! 🚀
+    </p>
+<a href="https://wa.me/966504854223?text=مرحباً،%20أود%20تفعيل%20حسابي%20على%20موقع%20التقارير%20الذكية" target="_blank" style="display: inline-block; text-decoration: none; background-color: #25D366; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px;">
+    مراسلتنا عبر الواتس آب الآن
+</a>
+</div>
+
         <div class="alert" id="error">رقم الجوال أو كلمة المرور غير صحيحة</div>
         <div class="form-group">
             <label for="phone">رقم الجوال</label>
@@ -217,15 +238,8 @@
             <input type="password" id="password" placeholder="أدخل كلمة المرور">
         </div>
         <button onclick="login()">تسجيل الدخول</button>
-        <div class="activate-message">
-            للإشتراك وتنشيط الحساب يرجى مراسلتنا عبر الواتس
-            <a href="https://wa.me/966504854223" target="_blank">اضغط هنا</a>
-        </div>
-        <div class="preview-image">
-            <img src="photo.jpg" alt="صورة توضيحية للموقع">
 
-        </div>
-    </div>
+
 
     <script>
   const users = {
@@ -264,7 +278,4 @@ localStorage.setItem('userName', phone); // تخزين اسم المستخدم
 <script src="java/script.js"></script>
 
 </body>
-
-
-
 </html>
