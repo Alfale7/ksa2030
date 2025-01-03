@@ -390,49 +390,72 @@
     }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
 <script>
+
+
     function downloadAsImage() {
-        // التحقق من وجود العنصر
-        const container = document.querySelector('.container'); // العنصر المراد تحميله
-        if (!container) {
-            alert('العنصر .container غير موجود في الصفحة!');
-            return;
-        }
+    const container = document.querySelector('.container'); // العنصر المراد تحميله
+    if (!container) {
+        alert('العنصر .container غير موجود في الصفحة!');
+        return;
+    }
 
-        // إخفاء الأزرار قبل التحميل
-        const buttons = document.querySelector('.buttons');
-        const actionButtons = document.querySelector('.action-buttons');
-        if (buttons) buttons.style.display = 'none';
-        if (actionButtons) actionButtons.style.display = 'none';
+    // تعديل الحقول لإظهار النصوص بشكل صحيح
+    const inputs = container.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.style.textAlign = 'right'; // محاذاة النص لليمين
+        input.style.border = 'none'; // إزالة الحواف
+        input.style.boxShadow = 'none'; // إزالة الظلال
+        input.style.backgroundColor = 'transparent'; // إزالة لون الخلفية
+        input.readOnly = true; // جعل الحقول غير قابلة للتعديل
+    });
 
-        // محاولة تحميل التقرير باستخدام html2canvas
-        html2canvas(container, {
-            scale: 2, // لتحسين جودة الصورة
-            useCORS: true, // لتفادي مشاكل الصور الخارجية
-            backgroundColor: '#ffffff' // خلفية بيضاء للصورة
-        }).then((canvas) => {
-            const link = document.createElement('a');
-            link.download = 'report.png'; // اسم الملف عند التنزيل
-            link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
-            link.click();
+    // إخفاء الأزرار قبل التحميل
+    const buttons = document.querySelector('.buttons');
+    const actionButtons = document.querySelector('.action-buttons');
+    if (buttons) buttons.style.display = 'none';
+    if (actionButtons) actionButtons.style.display = 'none';
 
-            // إعادة إظهار الأزرار بعد التحميل
-            if (buttons) buttons.style.display = 'block';
-            if (actionButtons) actionButtons.style.display = 'flex';
-        }).catch((error) => {
-            console.error('حدث خطأ أثناء تحميل التقرير:', error);
-            alert('حدث خطأ أثناء تحميل التقرير. الرجاء المحاولة لاحقًا.');
+    // تحميل التقرير باستخدام html2canvas
+    html2canvas(container, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+    }).then((canvas) => {
+        const link = document.createElement('a');
+        link.download = 'report.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        // إعادة إعداد الحقول بعد التحميل
+        inputs.forEach(input => {
+            input.style.textAlign = ''; 
+            input.style.border = ''; 
+            input.style.boxShadow = ''; 
+            input.style.backgroundColor = ''; 
+            input.readOnly = false; 
         });
-    }
 
+        if (buttons) buttons.style.display = 'flex';
+        if (actionButtons) actionButtons.style.display = 'flex';
+    }).catch((error) => {
+        console.error('حدث خطأ أثناء تحميل التقرير:', error);
+        alert('حدث خطأ أثناء تحميل التقرير. الرجاء المحاولة لاحقًا.');
 
-function toggleFileInput(id) {
-    const fileInput = document.getElementById(id);
-    if (fileInput) {
-        fileInput.click(); // فتح نافذة اختيار الملفات
-    } else {
-        console.error(`Element with id "${id}" not found.`);
-    }
+        // إعادة إعداد الحقول في حال حدوث خطأ
+        inputs.forEach(input => {
+            input.style.textAlign = ''; 
+            input.style.border = ''; 
+            input.style.boxShadow = ''; 
+            input.style.backgroundColor = ''; 
+            input.readOnly = false; 
+        });
+
+        if (buttons) buttons.style.display = 'flex';
+        if (actionButtons) actionButtons.style.display = 'flex';
+    });
 }
 
 function displayImage(event, id) {
@@ -442,7 +465,6 @@ function displayImage(event, id) {
         return;
     }
 
-    // تحقق من نوع الملف المدعوم (صور فقط)
     const validTypes = ["image/jpeg", "image/png", "image/gif"];
     if (!validTypes.includes(file.type)) {
         alert("يرجى اختيار ملف صورة فقط (JPEG, PNG, GIF).");
@@ -453,30 +475,17 @@ function displayImage(event, id) {
     reader.onload = function (e) {
         const targetElement = document.querySelector(`#${id} img`);
         if (targetElement) {
-            targetElement.src = e.target.result; // تحديث مصدر الصورة
-            targetElement.parentElement.classList.add('active'); // إضافة تنسيق عند إضافة الصورة
+            targetElement.src = e.target.result; 
+            targetElement.parentElement.classList.add('active');
+            targetElement.style.width = '100%'; // تحديد العرض
+            targetElement.style.height = 'auto'; // الحفاظ على الأبعاد
+            targetElement.style.objectFit = 'contain'; // احتواء الصورة داخل الحاوية
         } else {
             console.error(`Element with id "${id}" or child <img> not found.`);
         }
     };
-    reader.readAsDataURL(file); // قراءة الملف كـ Base64
+    reader.readAsDataURL(file);
 }
-
-// تحسين مرونة الكود باستخدام اختيار العناصر بطريقة عامة
-function initializeFileInputs() {
-    document.querySelectorAll(".file-input").forEach((input) => {
-        input.addEventListener("change", (event) => {
-            const id = event.target.dataset.target; // استهداف العنصر باستخدام خاصية data-target
-            displayImage(event, id);
-        });
-    });
-}
-
-// التأكد من تنفيذ الكود عند تحميل الصفحة
-document.addEventListener("DOMContentLoaded", () => {
-    initializeFileInputs();
-});
-
 </script>
 
 <div class="buttons" style="display: flex; justify-content: space-between; margin-top: 20px;">
