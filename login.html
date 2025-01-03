@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مُعــد التقارير</title>
+
+
     <link rel="stylesheet" href="Css/style.css">
+
+
     <meta property="og:title" content="معد التقارير">
     <meta property="og:description" content="قم بإنشاء تقارير احترافية بكل سهولة!">
     <meta property="og:image" content="https://www.ksa2030.life/photo.jpg">
@@ -217,26 +223,29 @@
             .catch(error => console.error('Error loading users:', error));
 
         function login() {
-            const phone = document.getElementById('phone').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const error = document.getElementById('error');
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const error = document.getElementById('error');
 
-            if (!phone || !password) {
-                error.textContent = "يرجى تعبئة جميع الحقول.";
-                error.classList.add('show');
-                setTimeout(() => error.classList.remove('show'), 3000);
-                return;
-            }
+    // التحقق من أن الحقول ليست فارغة
+    if (!phone || !password) {
+        error.textContent = "يرجى تعبئة جميع الحقول.";
+        error.classList.add('show');
+        setTimeout(() => error.classList.remove('show'), 3000);
+        return;
+    }
 
-            if (users[phone] && users[phone] === password) {
-                alert
-                window.location.href = 'choose_report.html';
-            } else {
-                error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
-                error.classList.add('show');
-                setTimeout(() => error.classList.remove('show'), 3000);
-            }
-        }
+    // التحقق من بيانات تسجيل الدخول
+    if (users[phone] && users[phone] === password) {
+        // إذا كانت البيانات صحيحة
+        window.location.href = 'choose_report.html'; // التوجيه إلى الصفحة التالية
+    } else {
+        // إذا كانت البيانات خاطئة
+        error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
+        error.classList.add('show');
+        setTimeout(() => error.classList.remove('show'), 3000);
+    }
+}
     </script>
 </body>
 </html>
