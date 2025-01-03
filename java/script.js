@@ -94,44 +94,45 @@ function downloadAsImage() {
         return;
     }
 
-    // إعداد النصوص من الحقول
+    // إعداد النصوص المدخلة
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
     inputs.forEach(input => {
-        const div = document.createElement('div');
-        div.style.position = 'absolute';
-        div.style.left = `${input.offsetLeft}px`;
-        div.style.top = `${input.offsetTop}px`;
-        div.style.width = `${input.offsetWidth}px`;
-        div.style.height = `${input.offsetHeight}px`;
-        div.style.fontSize = window.getComputedStyle(input).fontSize;
-        div.style.fontFamily = window.getComputedStyle(input).fontFamily;
-        div.style.color = '#000';
-        div.style.lineHeight = window.getComputedStyle(input).lineHeight;
-        div.style.textAlign = 'right';
-        div.style.whiteSpace = 'pre-wrap';
-        div.textContent = input.value.trim();
-        div.className = 'temp-element';
-        container.appendChild(div);
-        tempElements.push(div);
+        const textElement = document.createElement('div');
+        textElement.style.position = 'absolute';
+        textElement.style.left = `${input.offsetLeft}px`;
+        textElement.style.top = `${input.offsetTop}px`;
+        textElement.style.width = `${input.offsetWidth}px`;
+        textElement.style.height = `${input.offsetHeight}px`;
+        textElement.style.fontSize = window.getComputedStyle(input).fontSize;
+        textElement.style.fontFamily = window.getComputedStyle(input).fontFamily;
+        textElement.style.color = '#000';
+        textElement.style.textAlign = 'right';
+        textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
+        textElement.style.whiteSpace = 'pre-wrap'; // لضمان ظهور النصوص متعددة الأسطر
+        textElement.textContent = input.value; // إدخال النصوص كما هي
+        textElement.className = 'temp-element';
+        container.appendChild(textElement);
+        tempElements.push(textElement);
 
-        input.style.visibility = 'hidden';
+        input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
     });
 
     // تحويل التقرير إلى صورة
     html2canvas(container, {
-        scale: 3,
+        scale: 3, // لتحسين جودة الصورة
         useCORS: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#ffffff', // خلفية بيضاء
     }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'report.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
 
+        // إعادة الحقول إلى وضعها الطبيعي
         inputs.forEach(input => (input.style.visibility = 'visible'));
-        tempElements.forEach(el => el.remove());
+        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
     }).catch(error => {
         console.error('خطأ أثناء إنشاء الصورة:', error);
         alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
