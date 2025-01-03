@@ -202,50 +202,10 @@
         <button onclick="login()">تسجيل الدخول</button>
     </div>
 
-    <script>
+    
+<!-- ربط ملف JavaScript -->
+<script src="java/script.js"></script>
 
 
-
-
-
-        function toggleMenu() {
-            const menu = document.getElementById('sideMenu');
-            menu.classList.toggle('open');
-        }
-
-        let users = {};
-
-        fetch('user.json')
-            .then(response => response.json())
-            .then(data => {
-                users = data;
-            })
-            .catch(error => console.error('Error loading users:', error));
-
-        function login() {
-    const phone = document.getElementById('phone').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const error = document.getElementById('error');
-
-    // التحقق من أن الحقول ليست فارغة
-    if (!phone || !password) {
-        error.textContent = "يرجى تعبئة جميع الحقول.";
-        error.classList.add('show');
-        setTimeout(() => error.classList.remove('show'), 3000);
-        return;
-    }
-
-    // التحقق من بيانات تسجيل الدخول
-    if (users[phone] && users[phone] === password) {
-        // إذا كانت البيانات صحيحة
-        window.location.href = 'choose_report.html'; // التوجيه إلى الصفحة التالية
-    } else {
-        // إذا كانت البيانات خاطئة
-        error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
-        error.classList.add('show');
-        setTimeout(() => error.classList.remove('show'), 3000);
-    }
-}
-    </script>
 </body>
 </html>
