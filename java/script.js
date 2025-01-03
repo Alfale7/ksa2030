@@ -87,6 +87,7 @@ function displayImage(event, id) {
     }
 }
 
+// دالة تحميل التقرير كصورة
 function downloadAsImage() {
     const container = document.querySelector('.container');
     if (!container) {
