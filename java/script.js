@@ -94,11 +94,61 @@ function displayImage(event, id) {
 
 
 function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر المراد تحميله
+    const container = document.querySelector('.container');
     if (!container) {
-        alert('العنصر .container غير موجود في الصفحة!');
+        alert('العنصر .container غير موجود');
         return;
     }
+
+    // تحويل النصوص إلى نقاط
+    const inputs = container.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        if (input.tagName === 'TEXTAREA' && (input.id === 'objectives' || input.id === 'program-description')) {
+            const lines = input.value.split('\n');
+            const list = document.createElement('ul');
+            list.style.position = 'absolute';
+            list.style.left = `${input.offsetLeft}px`;
+            list.style.top = `${input.offsetTop}px`;
+            list.style.width = `${input.offsetWidth}px`;
+            list.style.fontSize = window.getComputedStyle(input).fontSize;
+            list.style.fontFamily = window.getComputedStyle(input).fontFamily;
+            list.style.lineHeight = window.getComputedStyle(input).lineHeight;
+            list.style.textAlign = "right";
+            list.style.color = '#000';
+            list.style.backgroundColor = 'transparent';
+            list.style.border = 'none';
+            lines.forEach(line => {
+                const listItem = document.createElement('li');
+                listItem.textContent = line;
+                list.appendChild(listItem);
+            });
+            list.className = 'temp-list';
+            container.appendChild(list);
+        } else {
+            input.style.textAlign = 'right';
+            input.style.visibility = 'hidden';
+        }
+    });
+
+    // تحويل التقرير إلى صورة
+    html2canvas(container, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+    }).then((canvas) => {
+        const link = document.createElement('a');
+        link.download = 'report.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        // إعادة إعداد النصوص
+        inputs.forEach(input => input.style.visibility = 'visible');
+        const tempLists = container.querySelectorAll('.temp-list');
+        tempLists.forEach(list => list.remove());
+    }).catch((error) => {
+        console.error('خطأ أثناء إنشاء الصورة:', error);
+    });
+}
 
     // إعداد الحقول لتحسين النصوص وجعلها تظهر بوضوح
     const inputs = container.querySelectorAll('input, textarea');
