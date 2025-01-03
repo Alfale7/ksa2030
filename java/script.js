@@ -88,52 +88,50 @@ function displayImage(event, id) {
 }
 
 function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر الذي يحتوي التقرير
+    const container = document.querySelector('.container');
     if (!container) {
         alert('العنصر .container غير موجود!');
         return;
     }
 
-    // نسخ النصوص من الحقول إلى عناصر نصية جديدة
+    // إعداد النصوص من الحقول
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
     inputs.forEach(input => {
-        const textElement = document.createElement('div');
-        textElement.style.position = 'absolute';
-        textElement.style.left = `${input.offsetLeft}px`;
-        textElement.style.top = `${input.offsetTop}px`;
-        textElement.style.width = `${input.offsetWidth}px`;
-        textElement.style.height = `${input.offsetHeight}px`;
-        textElement.style.fontSize = window.getComputedStyle(input).fontSize;
-        textElement.style.fontFamily = window.getComputedStyle(input).fontFamily;
-        textElement.style.color = '#000';
-        textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
-        textElement.style.textAlign = 'right';
-        textElement.style.whiteSpace = 'pre-wrap'; // الحفاظ على النصوص متعددة الأسطر
-        textElement.textContent = input.value;
-        textElement.className = 'temp-element'; // علامة لمعرفة العناصر المؤقتة
-        container.appendChild(textElement);
-        tempElements.push(textElement);
+        const div = document.createElement('div');
+        div.style.position = 'absolute';
+        div.style.left = `${input.offsetLeft}px`;
+        div.style.top = `${input.offsetTop}px`;
+        div.style.width = `${input.offsetWidth}px`;
+        div.style.height = `${input.offsetHeight}px`;
+        div.style.fontSize = window.getComputedStyle(input).fontSize;
+        div.style.fontFamily = window.getComputedStyle(input).fontFamily;
+        div.style.color = '#000';
+        div.style.lineHeight = window.getComputedStyle(input).lineHeight;
+        div.style.textAlign = 'right';
+        div.style.whiteSpace = 'pre-wrap';
+        div.textContent = input.value.trim();
+        div.className = 'temp-element';
+        container.appendChild(div);
+        tempElements.push(div);
 
-        // إخفاء الحقول الأصلية أثناء التحويل
         input.style.visibility = 'hidden';
     });
 
     // تحويل التقرير إلى صورة
     html2canvas(container, {
-        scale: 3, // تحسين الدقة
-        useCORS: true, // السماح للصور الخارجية
-        backgroundColor: '#ffffff', // خلفية بيضاء للصورة
+        scale: 3,
+        useCORS: true,
+        backgroundColor: '#ffffff',
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف عند التحميل
-        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
+        link.download = 'report.png';
+        link.href = canvas.toDataURL('image/png');
         link.click();
 
-        // إزالة العناصر المؤقتة وإعادة الحقول لوضعها الطبيعي
         inputs.forEach(input => (input.style.visibility = 'visible'));
-        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
+        tempElements.forEach(el => el.remove());
     }).catch(error => {
         console.error('خطأ أثناء إنشاء الصورة:', error);
         alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
