@@ -87,54 +87,58 @@ function displayImage(event, id) {
     }
 }
 
-// دالة تحميل التقرير كصورة
 function downloadAsImage() {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.container'); // العنصر المراد تحميله
     if (!container) {
         alert('العنصر .container غير موجود');
         return;
     }
 
+    // إعداد النصوص داخل الحقول لعرضها بشكل صحيح أثناء التحميل
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
     inputs.forEach(input => {
-        if (input.tagName === 'TEXTAREA' && (input.id === 'objectives' || input.id === 'program-description')) {
-            const lines = input.value.split('\n').filter(line => line.trim() !== '');
-            const ul = document.createElement('ul');
-            ul.style.position = 'absolute';
-            ul.style.left = `${input.offsetLeft}px`;
-            ul.style.top = `${input.offsetTop}px`;
-            ul.style.width = `${input.offsetWidth}px`;
-            ul.style.fontSize = window.getComputedStyle(input).fontSize;
-            ul.style.fontFamily = window.getComputedStyle(input).fontFamily;
-            ul.style.textAlign = 'right';
-            lines.forEach(line => {
-                const li = document.createElement('li');
-                li.textContent = line.trim();
-                ul.appendChild(li);
-            });
-            ul.className = 'temp-element';
-            container.appendChild(ul);
-            tempElements.push(ul);
-        } else {
+        if (input.tagName === 'TEXTAREA' || input.tagName === 'INPUT') {
+            const div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.left = `${input.offsetLeft}px`;
+            div.style.top = `${input.offsetTop}px`;
+            div.style.width = `${input.offsetWidth}px`;
+            div.style.fontSize = window.getComputedStyle(input).fontSize;
+            div.style.fontFamily = window.getComputedStyle(input).fontFamily;
+            div.style.lineHeight = window.getComputedStyle(input).lineHeight;
+            div.style.textAlign = 'right'; // محاذاة النص لليمين
+            div.style.color = '#000'; // لون النص
+            div.style.backgroundColor = 'transparent'; // إزالة لون الخلفية
+            div.style.padding = '5px';
+            div.style.boxSizing = 'border-box';
+            div.textContent = input.value.trim().replace(/\n/g, ' '); // إزالة القوائم واستبدال النصوص بخط واحد
+            div.className = 'temp-element'; // علامة لمعرفة العناصر المؤقتة
+            container.appendChild(div);
+            tempElements.push(div);
+
+            // إخفاء الحقول الأصلية أثناء التحويل
             input.style.visibility = 'hidden';
         }
     });
 
+    // تحويل التقرير إلى صورة
     html2canvas(container, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: '#ffffff',
+        scale: 3, // تحسين الدقة
+        useCORS: true, // السماح للصور الخارجية
+        backgroundColor: '#ffffff', // خلفية بيضاء للصورة
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png';
-        link.href = canvas.toDataURL('image/png');
+        link.download = 'report.png'; // اسم الملف عند التحميل
+        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
         link.click();
 
-        inputs.forEach(input => input.style.visibility = 'visible');
-        tempElements.forEach(el => el.remove());
+        // إعادة النصوص والحقول إلى وضعها الطبيعي
+        inputs.forEach(input => (input.style.visibility = 'visible'));
+        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
     }).catch(error => {
         console.error('خطأ أثناء إنشاء الصورة:', error);
+        alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
     });
 }
