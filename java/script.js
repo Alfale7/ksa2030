@@ -86,8 +86,6 @@ function displayImage(event, id) {
         reader.readAsDataURL(file);
     }
 }
-
-// دالة لتحويل التقرير إلى صورة
 function downloadAsImage() {
     const container = document.querySelector('.container');
     if (!container) {
@@ -95,12 +93,13 @@ function downloadAsImage() {
         return;
     }
 
+    // تحويل النصوص متعددة الأسطر إلى قوائم نقطية
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
     inputs.forEach(input => {
         if (input.tagName === 'TEXTAREA' && (input.id === 'objectives' || input.id === 'program-description')) {
-            const lines = input.value.split('\n');
+            const lines = input.value.split('\n'); // تقسيم النص إلى أسطر
             const ul = document.createElement('ul');
             ul.style.position = 'absolute';
             ul.style.left = `${input.offsetLeft}px`;
@@ -108,7 +107,7 @@ function downloadAsImage() {
             ul.style.width = `${input.offsetWidth}px`;
             ul.style.fontSize = window.getComputedStyle(input).fontSize;
             ul.style.fontFamily = window.getComputedStyle(input).fontFamily;
-            ul.style.textAlign = 'right';
+            ul.style.textAlign = 'right'; // محاذاة لليمين
             lines.forEach(line => {
                 const li = document.createElement('li');
                 li.textContent = line.trim();
@@ -118,12 +117,14 @@ function downloadAsImage() {
             container.appendChild(ul);
             tempElements.push(ul);
         } else {
+            // إخفاء الحقول النصية
             input.style.visibility = 'hidden';
         }
     });
 
+    // تحويل التقرير إلى صورة
     html2canvas(container, {
-        scale: 2,
+        scale: 3, // تحسين الجودة
         useCORS: true,
         backgroundColor: '#ffffff',
     }).then(canvas => {
@@ -132,9 +133,11 @@ function downloadAsImage() {
         link.href = canvas.toDataURL('image/png');
         link.click();
 
+        // إعادة النصوص والحقول إلى وضعها الطبيعي
         inputs.forEach(input => input.style.visibility = 'visible');
         tempElements.forEach(el => el.remove());
     }).catch(error => {
         console.error('خطأ أثناء إنشاء الصورة:', error);
+        alert('خطأ أثناء إنشاء الصورة. يرجى المحاولة مرة أخرى.');
     });
 }
