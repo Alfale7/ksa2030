@@ -88,57 +88,53 @@ function displayImage(event, id) {
 }
 
 function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر المراد تحميله
+    const container = document.querySelector('.container'); // العنصر الذي يحتوي التقرير
     if (!container) {
-        alert('العنصر .container غير موجود');
+        alert('العنصر .container غير موجود!');
         return;
     }
 
-    // إعداد النصوص داخل الحقول لعرضها بشكل صحيح أثناء التحميل
+    // نسخ النصوص من الحقول إلى عناصر نصية جديدة
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
     inputs.forEach(input => {
-        if (input.tagName === 'TEXTAREA' || input.tagName === 'INPUT') {
-            const div = document.createElement('div');
-            div.style.position = 'absolute';
-            div.style.left = `${input.offsetLeft}px`;
-            div.style.top = `${input.offsetTop}px`;
-            div.style.width = `${input.offsetWidth}px`;
-            div.style.fontSize = window.getComputedStyle(input).fontSize;
-            div.style.fontFamily = window.getComputedStyle(input).fontFamily;
-            div.style.lineHeight = window.getComputedStyle(input).lineHeight;
-            div.style.textAlign = 'right'; // محاذاة النص لليمين
-            div.style.color = '#000'; // لون النص
-            div.style.backgroundColor = 'transparent'; // إزالة لون الخلفية
-            div.style.padding = '5px';
-            div.style.boxSizing = 'border-box';
-            div.textContent = input.value.trim().replace(/\n/g, ' '); // إزالة القوائم واستبدال النصوص بخط واحد
-            div.className = 'temp-element'; // علامة لمعرفة العناصر المؤقتة
-            container.appendChild(div);
-            tempElements.push(div);
+        const textElement = document.createElement('div');
+        textElement.style.position = 'absolute';
+        textElement.style.left = `${input.offsetLeft}px`;
+        textElement.style.top = `${input.offsetTop}px`;
+        textElement.style.width = `${input.offsetWidth}px`;
+        textElement.style.fontSize = window.getComputedStyle(input).fontSize;
+        textElement.style.fontFamily = window.getComputedStyle(input).fontFamily;
+        textElement.style.color = '#000';
+        textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
+        textElement.style.textAlign = 'right';
+        textElement.style.whiteSpace = 'pre-wrap'; // للحفاظ على النصوص متعددة الأسطر
+        textElement.textContent = input.value;
+        textElement.className = 'temp-element';
+        container.appendChild(textElement);
+        tempElements.push(textElement);
 
-            // إخفاء الحقول الأصلية أثناء التحويل
-            input.style.visibility = 'hidden';
-        }
+        // إخفاء الحقول الأصلية
+        input.style.visibility = 'hidden';
     });
 
     // تحويل التقرير إلى صورة
     html2canvas(container, {
-        scale: 3, // تحسين الدقة
-        useCORS: true, // السماح للصور الخارجية
-        backgroundColor: '#ffffff', // خلفية بيضاء للصورة
+        scale: 3, // تحسين الجودة
+        useCORS: true, // لتجنب مشاكل الصور الخارجية
+        backgroundColor: '#ffffff'
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف عند التحميل
+        link.download = 'report.png'; // اسم الملف المحمل
         link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
         link.click();
 
-        // إعادة النصوص والحقول إلى وضعها الطبيعي
+        // إزالة العناصر المؤقتة وإعادة الحقول لوضعها الطبيعي
         inputs.forEach(input => (input.style.visibility = 'visible'));
-        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
+        tempElements.forEach(element => element.remove());
     }).catch(error => {
-        console.error('خطأ أثناء إنشاء الصورة:', error);
+        console.error('حدث خطأ أثناء إنشاء الصورة:', error);
         alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
     });
 }
