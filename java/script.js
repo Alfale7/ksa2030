@@ -95,7 +95,7 @@ function downloadAsImage() {
         return;
     }
 
-    // إعداد النصوص المدخلة
+    // تحويل النصوص في الحقول إلى نصوص مرئية
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
@@ -111,8 +111,8 @@ function downloadAsImage() {
         textElement.style.color = '#000';
         textElement.style.textAlign = 'right';
         textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
-        textElement.style.whiteSpace = 'pre-wrap'; // لضمان ظهور النصوص متعددة الأسطر
-        textElement.textContent = input.value; // إدخال النصوص كما هي
+        textElement.style.whiteSpace = 'pre-wrap'; // دعم النصوص متعددة الأسطر
+        textElement.textContent = input.value; // إضافة النص من الحقول
         textElement.className = 'temp-element';
         container.appendChild(textElement);
         tempElements.push(textElement);
@@ -120,15 +120,15 @@ function downloadAsImage() {
         input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
     });
 
-    // تحويل التقرير إلى صورة
+    // استخدام html2canvas لتحويل العنصر إلى صورة
     html2canvas(container, {
-        scale: 3, // لتحسين جودة الصورة
+        scale: 3, // تحسين جودة الصورة
         useCORS: true,
-        backgroundColor: '#ffffff', // خلفية بيضاء
+        backgroundColor: '#ffffff', // تعيين خلفية بيضاء
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png';
-        link.href = canvas.toDataURL('image/png');
+        link.download = 'report.png'; // اسم الملف
+        link.href = canvas.toDataURL('image/png'); // تحويل إلى صورة
         link.click();
 
         // إعادة الحقول إلى وضعها الطبيعي
