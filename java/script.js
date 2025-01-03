@@ -13,7 +13,6 @@ function login() {
     const password = document.getElementById('password').value.trim();
     const error = document.getElementById('error');
 
-    // التحقق من أن الحقول ليست فارغة
     if (!phone || !password) {
         error.textContent = "يرجى تعبئة جميع الحقول.";
         error.classList.add('show');
@@ -21,14 +20,11 @@ function login() {
         return;
     }
 
-    // التحقق من بيانات تسجيل الدخول
     if (users[phone] && users[phone] === password) {
-        // إذا كانت البيانات صحيحة
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userName', phone);
-        window.location.href = 'choose_report.html'; // التوجيه إلى الصفحة التالية
+        window.location.href = 'choose_report.html';
     } else {
-        // إذا كانت البيانات خاطئة
         error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
         error.classList.add('show');
         setTimeout(() => error.classList.remove('show'), 3000);
@@ -62,7 +58,6 @@ function addShahid() {
         <img src="" alt="شاهد جديد">
         <button class="remove-btn" onclick="removeShahid('${newId}')">حذف</button>
     `;
-    // السماح بالنقر لتحميل الصور
     newShahid.setAttribute("onclick", `toggleFileInput('${newId}Input')`);
 
     shahidGrid.appendChild(newShahid);
@@ -92,6 +87,7 @@ function displayImage(event, id) {
     }
 }
 
+// دالة لتحويل التقرير إلى صورة
 function downloadAsImage() {
     const container = document.querySelector('.container');
     if (!container) {
@@ -99,105 +95,46 @@ function downloadAsImage() {
         return;
     }
 
-    // تحويل النصوص متعددة الأسطر إلى نقاط
     const inputs = container.querySelectorAll('input, textarea');
+    const tempElements = [];
+
     inputs.forEach(input => {
         if (input.tagName === 'TEXTAREA' && (input.id === 'objectives' || input.id === 'program-description')) {
-            const lines = input.value.split('\n'); // تقسيم النص إلى أسطر
-            const list = document.createElement('ul');
-            list.style.position = 'absolute';
-            list.style.left = `${input.offsetLeft}px`;
-            list.style.top = `${input.offsetTop}px`;
-            list.style.width = `${input.offsetWidth}px`;
-            list.style.fontSize = window.getComputedStyle(input).fontSize;
-            list.style.fontFamily = window.getComputedStyle(input).fontFamily;
-            list.style.lineHeight = window.getComputedStyle(input).lineHeight;
-            list.style.textAlign = "right"; // محاذاة النص لليمين
-            list.style.color = '#000';
-            list.style.backgroundColor = 'transparent';
-            list.style.border = 'none';
+            const lines = input.value.split('\n');
+            const ul = document.createElement('ul');
+            ul.style.position = 'absolute';
+            ul.style.left = `${input.offsetLeft}px`;
+            ul.style.top = `${input.offsetTop}px`;
+            ul.style.width = `${input.offsetWidth}px`;
+            ul.style.fontSize = window.getComputedStyle(input).fontSize;
+            ul.style.fontFamily = window.getComputedStyle(input).fontFamily;
+            ul.style.textAlign = 'right';
             lines.forEach(line => {
-                const listItem = document.createElement('li');
-                listItem.textContent = line;
-                list.appendChild(listItem);
+                const li = document.createElement('li');
+                li.textContent = line.trim();
+                ul.appendChild(li);
             });
-            list.className = 'temp-list';
-            container.appendChild(list);
+            ul.className = 'temp-element';
+            container.appendChild(ul);
+            tempElements.push(ul);
         } else {
-            input.style.textAlign = 'right';
             input.style.visibility = 'hidden';
         }
     });
 
-    // تحويل التقرير إلى صورة
     html2canvas(container, {
-        scale: 3,
+        scale: 2,
         useCORS: true,
         backgroundColor: '#ffffff',
-    }).then((canvas) => {
+    }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'report.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
 
-        // إعادة النصوص والحقول إلى وضعها الطبيعي
         inputs.forEach(input => input.style.visibility = 'visible');
-        const tempLists = container.querySelectorAll('.temp-list');
-        tempLists.forEach(list => list.remove());
-    }).catch((error) => {
+        tempElements.forEach(el => el.remove());
+    }).catch(error => {
         console.error('خطأ أثناء إنشاء الصورة:', error);
-    });
-}
-
-    // إعداد الحقول لتحسين النصوص وجعلها تظهر بوضوح
-    const inputs = container.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.style.textAlign = 'right'; // ضبط المحاذاة لليمين
-        input.style.direction = 'rtl'; // ضبط اتجاه النص
-        input.style.fontFamily = 'Arial, sans-serif'; // تحسين نوع الخط
-        input.style.fontSize = '16px'; // تحسين حجم الخط
-        input.style.fontWeight = 'normal'; // جعل الخط واضحاً وغير عريض
-        input.style.color = '#000'; // تحسين لون النص
-        input.style.backgroundColor = 'transparent'; // إزالة لون الخلفية
-        input.style.border = 'none'; // إزالة الحدود
-        input.style.boxShadow = 'none'; // إزالة الظلال
-    });
-
-    // إخفاء الأزرار قبل التحميل
-    const buttons = document.querySelector('.buttons');
-    const actionButtons = document.querySelector('.action-buttons');
-    if (buttons) buttons.style.display = 'none';
-    if (actionButtons) actionButtons.style.display = 'none';
-
-    // تحميل التقرير باستخدام html2canvas
-    html2canvas(container, {
-        scale: 2, // لتحسين جودة الصورة
-        useCORS: true, // لتفادي مشاكل الصور الخارجية
-        backgroundColor: '#ffffff' // خلفية بيضاء للصورة
-    }).then((canvas) => {
-        const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف عند التنزيل
-        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
-        link.click();
-
-        // إعادة إعداد الحقول إلى الوضع الطبيعي بعد التحميل
-        inputs.forEach(input => {
-            input.style.textAlign = ''; // إعادة المحاذاة الافتراضية
-            input.style.direction = ''; // إعادة الاتجاه الافتراضي
-            input.style.fontFamily = ''; // إعادة الخط الافتراضي
-            input.style.fontSize = ''; // إعادة حجم الخط الافتراضي
-            input.style.fontWeight = ''; // إعادة سماكة الخط الافتراضية
-            input.style.color = ''; // إعادة لون النص الافتراضي
-            input.style.backgroundColor = ''; // إعادة لون الخلفية الافتراضي
-            input.style.border = ''; // إعادة الحدود الافتراضية
-            input.style.boxShadow = ''; // إعادة الظلال الافتراضية
-        });
-
-        // إعادة إظهار الأزرار بعد التحميل
-        if (buttons) buttons.style.display = 'block';
-        if (actionButtons) actionButtons.style.display = 'flex';
-    }).catch((error) => {
-        console.error('حدث خطأ أثناء تحميل التقرير:', error);
-        alert('حدث خطأ أثناء تحميل التقرير. الرجاء المحاولة لاحقًا.');
     });
 }
