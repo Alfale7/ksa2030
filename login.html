@@ -1,59 +1,89 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مُعــد التقارير</title>
-
-<link rel="stylesheet" href="Css/style.css">
-
-
-    <!-- Meta Tags لإظهار الصورة والمعلومات عند مشاركة الرابط -->
+    <link rel="stylesheet" href="Css/style.css">
     <meta property="og:title" content="معد التقارير">
     <meta property="og:description" content="قم بإنشاء تقارير احترافية بكل سهولة!">
     <meta property="og:image" content="https://www.ksa2030.life/photo.jpg">
     <meta property="og:url" content="https://www.ksa2030.life">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_AR">
-    <!-- نهاية Meta Tags -->
     <style>
-
-
-
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background: linear-gradient(to bottom right, #004965, #00a08c);
+            background: linear-gradient(135deg, #00a08c, #004965);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .menu-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            color: green;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background: linear-gradient(145deg, #f0f9f9, #e5f5f5);
+            box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+            transition: 0.3s ease;
+            z-index: 999;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .side-menu.open {
+            right: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            font-size: 1.2em;
+            color: #004965;
+            text-decoration: none;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .side-menu a:hover {
+            color: #00a08c;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 25px;
+            cursor: pointer;
+            color: #004965;
         }
 
         .container {
             width: 90%;
-            max-width: 380px;
-            background: white;
-            padding: 20px;
+            max-width: 400px;
+            background: linear-gradient(145deg, #f0f9f9, #e5f5f5); 
+            padding: 30px 20px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            border: 1px solid rgba(0, 160, 140, 0.2);
         }
 
         .container h1 {
@@ -64,29 +94,32 @@
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: right;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.9em;
-            color: #004965;
+            font-size: 0.95em;
+            color: #555;
             margin-bottom: 5px;
+            font-weight: bold;
         }
 
         .form-group input {
             width: 100%;
             padding: 10px;
-            font-size: 0.9em;
+            font-size: 1em;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 8px;
             box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: #fff;
         }
 
         .form-group input:focus {
             border-color: #00a08c;
-            box-shadow: 0 0 8px rgba(0, 160, 140, 0.5);
+            box-shadow: 0 0 10px rgba(0, 160, 140, 0.5);
             outline: none;
         }
 
@@ -97,9 +130,9 @@
             color: white;
             background: linear-gradient(to right, #004965, #00a08c);
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             font-weight: bold;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
@@ -112,179 +145,88 @@
         .alert {
             display: none;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: white;
             background: #dc3545;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 0.9em;
         }
 
         .alert.show {
             display: block;
         }
-
-        .activate-message {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #004965;
-            background: #e6f7ff;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .activate-message a {
-            color: #00a08c;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .activate-message a:hover {
-            text-decoration: underline;
-        }
-
-        .preview-image {
-            margin-top: 15px;
-        }
-
-        .preview-image img {
-            width: 80%;
-            max-height: 280px;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-
-
-
     </style>
-
-
 </head>
 <body>
+    <!-- أيقونة الثلاث شرطات -->
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
+    <!-- النافذة الجانبية -->
+    <div class="side-menu" id="sideMenu">
+        <span class="close-btn" onclick="toggleMenu()">×</span>
+        <a href="index.html">الرئيسية</a>
+    </div>
 
-
-<!-- الصق هذا الكود داخل وسم body -->
-<div id="welcome-message">
-    التقارير الذكية: ✨ تسهيلات مبتكرة للتعليم والتعلم. 📝 أنشئ تقاريرك بسهولة وسرعة، وودّع الحاجة للبرامج التقليدية. 🚀
-</div>
-
-<!-- الصق هذا الكود داخل وسم style -->
-<style>
-    #welcome-message {
-        position: fixed;
-        bottom: 80px; /* مكان مريح للقراءة */
-        left: 20px; /* جهة اليسار */
-        background: linear-gradient(45deg, #1A567E, #4CAF50);
-        color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        font-size: 16px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        animation: slideIn 1s ease-out, fadeOut 5s ease-in-out forwards;
-        z-index: 1000;
-        max-width: 300px; /* عرض مناسب */
-        line-height: 1.5; /* تحسين المسافات بين الأسطر */
-        text-align: center; /* تحسين العرض */
-    }
-
-    @keyframes slideIn {
-        0% {
-            bottom: 30px; /* تبدأ من مكان منخفض قليلاً */
-            opacity: 0;
-        }
-        100% {
-            bottom: 80px; /* تصل إلى موقع مريح للقراءة */
-            opacity: 1;
-        }
-    }
-
-    @keyframes fadeOut {
-        0%, 80% {
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-            transform: translateY(20px); /* تتحرك قليلاً للأسفل عند الاختفاء */
-        }
-    }
-</style>
-
-
-<body style="margin: 0; padding: 0; box-sizing: border-box; background: linear-gradient(to bottom right, #004965, #00a08c); display: flex; justify-content: center; align-items: flex-start; height: 100vh;">
     <div class="container">
-       
+        <div style="text-align: center; margin-bottom: 20px;">
+            <p style="font-size: 18px; color: #333;">
+                📩 تواصل معنا الآن لتفعيل حسابك وتسجيل رقم جوالك للحصول على كلمة المرور الخاصة بموقع التقارير الذكية 📝🔑.
+                <br>ابدأ رحلتك نحو تقارير أكثر احترافية وتنظيماً بسهولة وسرعة! 🚀
+            </p>
+            <a href="https://wa.me/966504854223" target="_blank" style="display: inline-block; text-decoration: none; background-color: #25D366; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px;">
+                مراسلتنا عبر الواتس آب الآن
+            </a>
+        </div>
 
-<div style="text-align: center; margin-bottom: 20px;">
-    <p style="font-size: 18px; color: #333;">
-        📩 تواصل معنا الآن لتفعيل حسابك وتسجيل رقم جوالك للحصول على كلمة المرور الخاصة بموقع التقارير الذكية 📝🔑.
-        <br>ابدأ رحلتك نحو تقارير أكثر احترافية وتنظيماً بسهولة وسرعة! 🚀
-    </p>
-<a href="https://wa.me/966504854223?text=مرحباً،%20أود%20تفعيل%20حسابي%20على%20موقع%20التقارير%20الذكية" target="_blank" style="display: inline-block; text-decoration: none; background-color: #25D366; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px;">
-    مراسلتنا عبر الواتس آب الآن
-</a>
-</div>
+        <h1>مرحباً بك في مُعد التقارير</h1>
+        <div class="alert" id="error">رقم الجوال أو كلمة المرور غير صحيحة</div>
+        <div class="form-group">
+            <label for="phone">رقم الجوال</label>
+            <input type="tel" id="phone" placeholder="أدخل رقم الجوال">
+        </div>
+        <div class="form-group">
+            <label for="password">كلمة المرور</label>
+            <input type="password" id="password" placeholder="أدخل كلمة المرور">
+        </div>
+        <button onclick="login()">تسجيل الدخول</button>
+    </div>
 
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            menu.classList.toggle('open');
+        }
 
+        let users = {};
 
-<div class="alert" id="error" style="display: none; color: red;">رقم الجوال أو كلمة المرور غير صحيحة</div>
-<div class="form-group">
-    <label for="phone">رقم الجوال</label>
-    <input type="tel" id="phone" placeholder="أدخل رقم الجوال" pattern="[0-9]*" inputmode="numeric">
-</div>
-<div class="form-group">
-    <label for="password">كلمة المرور</label>
-    <input type="password" id="password" placeholder="أدخل كلمة المرور">
-</div>
-<button onclick="login()">تسجيل الدخول</button>
+        fetch('user.json')
+            .then(response => response.json())
+            .then(data => {
+                users = data;
+            })
+            .catch(error => console.error('Error loading users:', error));
 
-<script>
-    let users = {};
+        function login() {
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const error = document.getElementById('error');
 
-    // تحميل البيانات من ملف user.json
-    fetch('user.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to load user.json');
+            if (!phone || !password) {
+                error.textContent = "يرجى تعبئة جميع الحقول.";
+                error.classList.add('show');
+                setTimeout(() => error.classList.remove('show'), 3000);
+                return;
             }
-            return response.json();
-        })
-        .then(data => {
-            users = data; // تخزين البيانات في الكائن users
-        })
-        .catch(error => console.error('Error loading users:', error));
 
-    function login() {
-        const phone = document.getElementById('phone').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const error = document.getElementById('error');
-
-        // التحقق من أن الحقول ليست فارغة
-        if (!phone || !password) {
-            error.textContent = "يرجى تعبئة جميع الحقول.";
-            error.style.display = "block";
-            return;
+            if (users[phone] && users[phone] === password) {
+                alert("تم تسجيل الدخول بنجاح");
+                window.location.href = 'choose_report.html';
+            } else {
+                error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
+                error.classList.add('show');
+                setTimeout(() => error.classList.remove('show'), 3000);
+            }
         }
-
-        // التحقق من بيانات تسجيل الدخول
-        if (users[phone] && users[phone] === password) {
-            localStorage.setItem('isLoggedIn', true);
-            localStorage.setItem('userName', phone);
-            window.location.href = 'choose_report.html'; // توجيه المستخدم إلى الصفحة التالية
-        } else {
-            error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
-            error.style.display = "block";
-        }
-    }
-</script>
-
-
-
-<!-- ربط ملف JavaScript -->
-<script src="java/script.js"></script>
-
+    </script>
 </body>
 </html>
