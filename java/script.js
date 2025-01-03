@@ -91,3 +91,64 @@ function displayImage(event, id) {
         reader.readAsDataURL(file);
     }
 }
+
+
+function downloadAsImage() {
+    const container = document.querySelector('.container'); // العنصر المراد تحميله
+    if (!container) {
+        alert('العنصر .container غير موجود في الصفحة!');
+        return;
+    }
+
+    // إعداد الحقول لتحسين النصوص وجعلها تظهر بوضوح
+    const inputs = container.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.style.textAlign = 'right'; // ضبط المحاذاة لليمين
+        input.style.direction = 'rtl'; // ضبط اتجاه النص
+        input.style.fontFamily = 'Arial, sans-serif'; // تحسين نوع الخط
+        input.style.fontSize = '16px'; // تحسين حجم الخط
+        input.style.fontWeight = 'normal'; // جعل الخط واضحاً وغير عريض
+        input.style.color = '#000'; // تحسين لون النص
+        input.style.backgroundColor = 'transparent'; // إزالة لون الخلفية
+        input.style.border = 'none'; // إزالة الحدود
+        input.style.boxShadow = 'none'; // إزالة الظلال
+    });
+
+    // إخفاء الأزرار قبل التحميل
+    const buttons = document.querySelector('.buttons');
+    const actionButtons = document.querySelector('.action-buttons');
+    if (buttons) buttons.style.display = 'none';
+    if (actionButtons) actionButtons.style.display = 'none';
+
+    // تحميل التقرير باستخدام html2canvas
+    html2canvas(container, {
+        scale: 2, // لتحسين جودة الصورة
+        useCORS: true, // لتفادي مشاكل الصور الخارجية
+        backgroundColor: '#ffffff' // خلفية بيضاء للصورة
+    }).then((canvas) => {
+        const link = document.createElement('a');
+        link.download = 'report.png'; // اسم الملف عند التنزيل
+        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
+        link.click();
+
+        // إعادة إعداد الحقول إلى الوضع الطبيعي بعد التحميل
+        inputs.forEach(input => {
+            input.style.textAlign = ''; // إعادة المحاذاة الافتراضية
+            input.style.direction = ''; // إعادة الاتجاه الافتراضي
+            input.style.fontFamily = ''; // إعادة الخط الافتراضي
+            input.style.fontSize = ''; // إعادة حجم الخط الافتراضي
+            input.style.fontWeight = ''; // إعادة سماكة الخط الافتراضية
+            input.style.color = ''; // إعادة لون النص الافتراضي
+            input.style.backgroundColor = ''; // إعادة لون الخلفية الافتراضي
+            input.style.border = ''; // إعادة الحدود الافتراضية
+            input.style.boxShadow = ''; // إعادة الظلال الافتراضية
+        });
+
+        // إعادة إظهار الأزرار بعد التحميل
+        if (buttons) buttons.style.display = 'block';
+        if (actionButtons) actionButtons.style.display = 'flex';
+    }).catch((error) => {
+        console.error('حدث خطأ أثناء تحميل التقرير:', error);
+        alert('حدث خطأ أثناء تحميل التقرير. الرجاء المحاولة لاحقًا.');
+    });
+}
