@@ -204,82 +204,9 @@
         }
     </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
-        function toggleFileInput(id) {
-            const fileInput = document.getElementById(id);
-            fileInput.click();
-        }
 
-        function displayImage(event, id) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = document.querySelector(`#${id} img`);
-                    img.src = e.target.result;
-                    img.parentElement.classList.add('active');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
 
- function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر المراد تحميله
-    if (!container) {
-        alert('العنصر .container غير موجود في الصفحة!');
-        return;
-    }
 
-    // إعداد الحقول لمحاذاة النص إلى اليمين وإخفاء الحواف
-    const inputs = container.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.style.textAlign = 'stop'; // محاذاة النص لليمين
-        input.style.border = 'stop'; // إزالة الحواف
-        input.style.boxShadow = 'stop'; // إزالة الظلال
-    });
-
-    // إخفاء الأزرار قبل التحميل
-    const buttons = document.querySelector('.buttons');
-    const actionButtons = document.querySelector('.action-buttons');
-    if (buttons) buttons.style.display = 'none';
-    if (actionButtons) actionButtons.style.display = 'none';
-
-    // محاولة تحميل التقرير باستخدام html2canvas
-    html2canvas(container, {
-        scale: 2, // لتحسين جودة الصورة
-        useCORS: true, // لتفادي مشاكل الصور الخارجية
-        backgroundColor: '#ffffff' // خلفية بيضاء للصورة
-    }).then((canvas) => {
-        const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف عند التنزيل
-        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
-        link.click();
-
-        // إعادة إعداد الحقول إلى الوضع الطبيعي بعد التحميل
-        inputs.forEach(input => {
-            input.style.textAlign = ''; // إعادة المحاذاة الافتراضية
-            input.style.border = ''; // إعادة الحواف
-            input.style.boxShadow = ''; // إعادة الظلال
-        });
-
-        // إعادة إظهار الأزرار بعد التحميل
-        if (buttons) buttons.style.display = 'stop';
-        if (actionButtons) actionButtons.style.display = 'stop';
-    }).catch((error) => {
-        console.error('حدث خطأ أثناء تحميل التقرير:', error);
-        alert('حدث خطأ أثناء تحميل التقرير. الرجاء المحاولة لاحقًا.');
-
-        // إعادة إعداد الحقول والأزرار في حال حدوث خطأ
-        inputs.forEach(input => {
-            input.style.textAlign = ''; // إعادة المحاذاة الافتراضية
-            input.style.border = ''; // إعادة الحواف
-            input.style.boxShadow = ''; // إعادة الظلال
-        });
-        if (buttons) buttons.style.display = 'stop';
-        if (actionButtons) actionButtons.style.display = 'stop';
-    });
-}
-    </script>
 
 
 </head>
