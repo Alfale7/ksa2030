@@ -104,37 +104,38 @@ function downloadAsImage() {
         textElement.style.left = `${input.offsetLeft}px`;
         textElement.style.top = `${input.offsetTop}px`;
         textElement.style.width = `${input.offsetWidth}px`;
+        textElement.style.height = `${input.offsetHeight}px`;
         textElement.style.fontSize = window.getComputedStyle(input).fontSize;
         textElement.style.fontFamily = window.getComputedStyle(input).fontFamily;
         textElement.style.color = '#000';
         textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
         textElement.style.textAlign = 'right';
-        textElement.style.whiteSpace = 'pre-wrap'; // للحفاظ على النصوص متعددة الأسطر
+        textElement.style.whiteSpace = 'pre-wrap'; // الحفاظ على النصوص متعددة الأسطر
         textElement.textContent = input.value;
-        textElement.className = 'temp-element';
+        textElement.className = 'temp-element'; // علامة لمعرفة العناصر المؤقتة
         container.appendChild(textElement);
         tempElements.push(textElement);
 
-        // إخفاء الحقول الأصلية
+        // إخفاء الحقول الأصلية أثناء التحويل
         input.style.visibility = 'hidden';
     });
 
     // تحويل التقرير إلى صورة
     html2canvas(container, {
-        scale: 3, // تحسين الجودة
-        useCORS: true, // لتجنب مشاكل الصور الخارجية
-        backgroundColor: '#ffffff'
+        scale: 3, // تحسين الدقة
+        useCORS: true, // السماح للصور الخارجية
+        backgroundColor: '#ffffff', // خلفية بيضاء للصورة
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف المحمل
+        link.download = 'report.png'; // اسم الملف عند التحميل
         link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
         link.click();
 
         // إزالة العناصر المؤقتة وإعادة الحقول لوضعها الطبيعي
         inputs.forEach(input => (input.style.visibility = 'visible'));
-        tempElements.forEach(element => element.remove());
+        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
     }).catch(error => {
-        console.error('حدث خطأ أثناء إنشاء الصورة:', error);
+        console.error('خطأ أثناء إنشاء الصورة:', error);
         alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
     });
 }
