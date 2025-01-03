@@ -142,9 +142,9 @@ button {
         background: linear-gradient(45deg, #144861, #3E8E41);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
-</style>
 
-  <style>
+
+ 
 .buttons {
     text-align: center;
     margin-top: 20px;
@@ -258,26 +258,26 @@ body {
             margin-bottom: 5px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             color: #103d5e;
-        }
 
-        .field input, .field textarea {
-            font-family: Arial, sans-serif;
-            font-weight: normal;
-            width: 100%;
-            padding: 8px; /* زيادة حجم الحشو لضمان ظهور النصوص كاملة */
-            border: 1px solid #46b39d;
-            border-radius: 5px;
-            font-size: 1em; /* زيادة حجم النص لضمان وضوحه */
-            box-sizing: border-box;
-            text-align: right; /* محاذاة النص لليمين */
-            overflow: hidden;
         }
+.field input, .field textarea {
+    font-family: Arial, sans-serif;
+    font-size: 16px; /* حجم النص */
+    line-height: 1.5; /* ارتفاع السطر */
+    text-align: right; /* محاذاة النص */
+    padding: 8px; /* مسافة داخلية */
+    border: 1px solid #46b39d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow: hidden; /* تجنب التداخل */
+    white-space: nowrap; /* منع النصوص متعددة الأسطر */
+}
 
-        .field input.no-border, .field textarea.no-border {
-            border: none !important;
-            box-shadow: none !important;
-            text-align: right !important; /* لضمان محاذاة النص عند الطباعة */
-        }
+.field textarea {
+    resize: none; /* منع تغيير الحجم */
+}
+
+
 
         .field input:focus, .field textarea:focus {
             border-color: #103d5e;
