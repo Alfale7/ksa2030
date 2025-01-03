@@ -92,7 +92,6 @@ function displayImage(event, id) {
     }
 }
 
-
 function downloadAsImage() {
     const container = document.querySelector('.container');
     if (!container) {
@@ -100,11 +99,11 @@ function downloadAsImage() {
         return;
     }
 
-    // تحويل النصوص إلى نقاط
+    // تحويل النصوص متعددة الأسطر إلى نقاط
     const inputs = container.querySelectorAll('input, textarea');
     inputs.forEach(input => {
         if (input.tagName === 'TEXTAREA' && (input.id === 'objectives' || input.id === 'program-description')) {
-            const lines = input.value.split('\n');
+            const lines = input.value.split('\n'); // تقسيم النص إلى أسطر
             const list = document.createElement('ul');
             list.style.position = 'absolute';
             list.style.left = `${input.offsetLeft}px`;
@@ -113,7 +112,7 @@ function downloadAsImage() {
             list.style.fontSize = window.getComputedStyle(input).fontSize;
             list.style.fontFamily = window.getComputedStyle(input).fontFamily;
             list.style.lineHeight = window.getComputedStyle(input).lineHeight;
-            list.style.textAlign = "right";
+            list.style.textAlign = "right"; // محاذاة النص لليمين
             list.style.color = '#000';
             list.style.backgroundColor = 'transparent';
             list.style.border = 'none';
@@ -141,7 +140,7 @@ function downloadAsImage() {
         link.href = canvas.toDataURL('image/png');
         link.click();
 
-        // إعادة إعداد النصوص
+        // إعادة النصوص والحقول إلى وضعها الطبيعي
         inputs.forEach(input => input.style.visibility = 'visible');
         const tempLists = container.querySelectorAll('.temp-list');
         tempLists.forEach(list => list.remove());
