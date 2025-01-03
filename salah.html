@@ -395,21 +395,21 @@
 <script>
 
 
-    function downloadAsImage() {
+  function downloadAsImage() {
     const container = document.querySelector('.container'); // العنصر المراد تحميله
     if (!container) {
         alert('العنصر .container غير موجود في الصفحة!');
         return;
     }
 
-    // تعديل الحقول لإظهار النصوص بشكل صحيح
+    // إعداد الحقول لمحاذاة النص إلى اليمين وتحسين الخطوط
     const inputs = container.querySelectorAll('input, textarea');
     inputs.forEach(input => {
-        input.style.textAlign = 'right'; // محاذاة النص لليمين
-        input.style.border = 'none'; // إزالة الحواف
-        input.style.boxShadow = 'none'; // إزالة الظلال
-        input.style.backgroundColor = 'transparent'; // إزالة لون الخلفية
-        input.readOnly = true; // جعل الحقول غير قابلة للتعديل
+        input.style.textAlign = 'right'; // ضبط المحاذاة لليمين
+        input.style.direction = 'rtl'; // ضبط اتجاه النص
+        input.style.fontFamily = 'Arial, sans-serif'; // تحسين نوع الخط
+        input.style.fontSize = '16px'; // تحسين حجم الخط
+        input.style.fontWeight = 'normal'; // جعل الخط واضحاً وغير عريض
     });
 
     // إخفاء الأزرار قبل التحميل
@@ -418,43 +418,32 @@
     if (buttons) buttons.style.display = 'none';
     if (actionButtons) actionButtons.style.display = 'none';
 
-    // تحميل التقرير باستخدام html2canvas
+    // محاولة تحميل التقرير باستخدام html2canvas
     html2canvas(container, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: '#ffffff'
+        scale: 2, // لتحسين جودة الصورة
+        useCORS: true, // لتفادي مشاكل الصور الخارجية
+        backgroundColor: '#ffffff' // خلفية بيضاء للصورة
     }).then((canvas) => {
         const link = document.createElement('a');
-        link.download = 'report.png';
-        link.href = canvas.toDataURL('image/png');
+        link.download = 'report.png'; // اسم الملف عند التنزيل
+        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
         link.click();
 
-        // إعادة إعداد الحقول بعد التحميل
+        // إعادة إعداد الحقول إلى الوضع الطبيعي بعد التحميل
         inputs.forEach(input => {
-            input.style.textAlign = ''; 
-            input.style.border = ''; 
-            input.style.boxShadow = ''; 
-            input.style.backgroundColor = ''; 
-            input.readOnly = false; 
+            input.style.textAlign = ''; // إعادة المحاذاة الافتراضية
+            input.style.direction = ''; // إعادة الاتجاه الافتراضي
+            input.style.fontFamily = ''; // إعادة الخط الافتراضي
+            input.style.fontSize = ''; // إعادة حجم الخط الافتراضي
+            input.style.fontWeight = ''; // إعادة سماكة الخط الافتراضية
         });
 
-        if (buttons) buttons.style.display = 'flex';
+        // إعادة إظهار الأزرار بعد التحميل
+        if (buttons) buttons.style.display = 'block';
         if (actionButtons) actionButtons.style.display = 'flex';
     }).catch((error) => {
         console.error('حدث خطأ أثناء تحميل التقرير:', error);
         alert('حدث خطأ أثناء تحميل التقرير. الرجاء المحاولة لاحقًا.');
-
-        // إعادة إعداد الحقول في حال حدوث خطأ
-        inputs.forEach(input => {
-            input.style.textAlign = ''; 
-            input.style.border = ''; 
-            input.style.boxShadow = ''; 
-            input.style.backgroundColor = ''; 
-            input.readOnly = false; 
-        });
-
-        if (buttons) buttons.style.display = 'flex';
-        if (actionButtons) actionButtons.style.display = 'flex';
     });
 }
 
