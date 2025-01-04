@@ -66,18 +66,28 @@ button:hover {
     margin-bottom: 5px;
     color: #103d5e;
 }
+
+body {
+    font-family: 'Cairo', 'Tajawal', Arial, sans-serif; /* أضف الخطوط هنا */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, #e6f7ff, #cceeff);
+}
+
 .field input, .field textarea {
-    font-family: Arial, sans-serif;
-    font-size: 16px; /* حجم النص */
+    font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+    font-size: 14px; /* حجم النص */
     line-height: 1.5; /* ارتفاع السطر */
     text-align: right; /* محاذاة النص */
-    padding: 8px; /* مسافة داخلية */
+    padding: 8px;
     border: 1px solid #46b39d;
     border-radius: 5px;
     box-sizing: border-box;
     overflow: hidden; /* تجنب التداخل */
-    white-space: nowrap; /* منع النصوص متعددة الأسطر */
-    max-width: 90%; /* تحديد عرض الحقل */
+    max-width: 95%; /* عرض الحقول */
+    white-space: normal; /* دعم النصوص متعددة الأسطر */
+    resize: none; /* منع المستخدم من تغيير حجم الحقول */
 }
 
 .field textarea {
