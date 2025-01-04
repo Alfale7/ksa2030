@@ -88,13 +88,12 @@ function displayImage(event, id) {
 }
 
 function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر الذي يحتوي على التقرير
+    const container = document.querySelector('.container');
     if (!container) {
         alert('العنصر .container غير موجود!');
         return;
     }
 
-    // تحويل النصوص في الحقول إلى نصوص مرئية
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
@@ -106,20 +105,37 @@ function downloadAsImage() {
         textElement.style.width = `${input.offsetWidth}px`;
         textElement.style.height = `${input.offsetHeight}px`;
         textElement.style.fontSize = window.getComputedStyle(input).fontSize;
-        textElement.style.fontFamily = 'Tahoma, Arial, sans-serif'; // خط يدعم اللغة العربية
+        textElement.style.fontFamily = `'Cairo', 'Tajawal', Arial, sans-serif`; // تحديث الخط
         textElement.style.color = '#000';
-        textElement.style.textAlign = 'right'; // لضبط المحاذاة
-        textElement.style.direction = 'rtl'; // لضبط الاتجاه
-        textElement.style.lineHeight = '1.5'; // تحسين تباعد الأسطر
-        textElement.style.overflowWrap = 'break-word'; // السماح بتقسيم النص
+        textElement.style.textAlign = 'right'; // محاذاة النص
+        textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
         textElement.style.whiteSpace = 'pre-wrap'; // دعم النصوص متعددة الأسطر
-        textElement.textContent = input.value; // إضافة النص من الحقول
+        textElement.textContent = input.value; // إضافة النص
+        textElement.style.direction = 'rtl'; // ضبط الاتجاه
         textElement.className = 'temp-element';
         container.appendChild(textElement);
         tempElements.push(textElement);
 
         input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
     });
+
+    html2canvas(container, {
+        scale: 3, // تحسين جودة الصورة
+        useCORS: true,
+        backgroundColor: '#ffffff' // تعيين خلفية بيضاء
+    }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'report.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        inputs.forEach(input => (input.style.visibility = 'visible'));
+        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
+    }).catch(error => {
+        console.error('خطأ أثناء إنشاء الصورة:', error);
+        alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
+    });
+}
 
     // تحويل التقرير إلى صورة باستخدام html2canvas
     html2canvas(container, {
