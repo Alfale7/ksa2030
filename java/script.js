@@ -9,35 +9,31 @@ const users = {
 
 // دالة تسجيل الدخول
 function login() {
-    const phone = document.getElementById('phone').value.trim(); // الحصول على قيمة رقم الجوال
-    const password = document.getElementById('password').value.trim(); // الحصول على كلمة المرور
-    const error = document.getElementById('error'); // عنصر رسالة الخطأ
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const error = document.getElementById('error');
 
     // التحقق من تعبئة الحقول
     if (!phone || !password) {
-        showError("يرجى تعبئة جميع الحقول."); // عرض رسالة خطأ إذا كانت الحقول فارغة
+        showError("يرجى تعبئة جميع الحقول.");
         return;
     }
 
     // التحقق من صحة بيانات تسجيل الدخول
     if (users[phone] && users[phone] === password) {
-        // تخزين حالة تسجيل الدخول في localStorage
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userName', phone);
-
-        // الانتقال إلى صفحة اختيار التقارير
-        window.location.href = 'choose_report.html';
+        window.location.href = 'choose_report.html'; // الانتقال إلى صفحة اختيار التقارير
     } else {
-        // عرض رسالة خطأ إذا كانت بيانات تسجيل الدخول غير صحيحة
         showError("رقم الجوال أو كلمة المرور غير صحيحة.");
     }
 }
 
 // دالة عرض رسالة الخطأ
 function showError(message) {
-    const error = document.getElementById('error'); // عنصر رسالة الخطأ
-    error.textContent = message; // وضع الرسالة
-    error.classList.add('show'); // عرض الرسالة
+    const error = document.getElementById('error');
+    error.textContent = message;
+    error.classList.add('show');
 
     // إخفاء الرسالة بعد 3 ثوانٍ
     setTimeout(() => error.classList.remove('show'), 3000);
@@ -92,12 +88,13 @@ function displayImage(event, id) {
 }
 
 function downloadAsImage() {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.container'); // العنصر الذي يحتوي على التقرير
     if (!container) {
         alert('العنصر .container غير موجود!');
         return;
     }
 
+    // تحويل النصوص في الحقول إلى نصوص مرئية
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
@@ -109,37 +106,20 @@ function downloadAsImage() {
         textElement.style.width = `${input.offsetWidth}px`;
         textElement.style.height = `${input.offsetHeight}px`;
         textElement.style.fontSize = window.getComputedStyle(input).fontSize;
-        textElement.style.fontFamily = `'Cairo', 'Tajawal', Arial, sans-serif`; // تحديث الخط
+        textElement.style.fontFamily = 'Tahoma, Arial, sans-serif'; // خط يدعم اللغة العربية
         textElement.style.color = '#000';
-        textElement.style.textAlign = 'right'; // محاذاة النص
-        textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
+        textElement.style.textAlign = 'right'; // لضبط المحاذاة
+        textElement.style.direction = 'rtl'; // لضبط الاتجاه
+        textElement.style.lineHeight = '1.5'; // تحسين تباعد الأسطر
+        textElement.style.overflowWrap = 'break-word'; // السماح بتقسيم النص
         textElement.style.whiteSpace = 'pre-wrap'; // دعم النصوص متعددة الأسطر
-        textElement.textContent = input.value; // إضافة النص
-        textElement.style.direction = 'rtl'; // ضبط الاتجاه
+        textElement.textContent = input.value; // إضافة النص من الحقول
         textElement.className = 'temp-element';
         container.appendChild(textElement);
         tempElements.push(textElement);
 
         input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
     });
-
-    html2canvas(container, {
-        scale: 3, // تحسين جودة الصورة
-        useCORS: true,
-        backgroundColor: '#ffffff' // تعيين خلفية بيضاء
-    }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'report.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-
-        inputs.forEach(input => (input.style.visibility = 'visible'));
-        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
-    }).catch(error => {
-        console.error('خطأ أثناء إنشاء الصورة:', error);
-        alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
-    });
-}
 
     // تحويل التقرير إلى صورة باستخدام html2canvas
     html2canvas(container, {
