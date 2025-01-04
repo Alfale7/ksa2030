@@ -18,8 +18,8 @@ button:hover {
 /* تصميم الحاويات الرئيسية */
 .container {
     width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
+   max-width: 90%;
+    margin: auto;
     border: 1px solid #99ccff;
     border-radius: 10px;
     background: white;
@@ -76,23 +76,23 @@ body {
 }
 
 .field input, .field textarea {
-    font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+    font-family: 'Cairo', 'Tajawal', Arial, sans-serif; /* الخطوط */
     font-size: 14px; /* حجم النص */
-    line-height: 1.5; /* ارتفاع السطر */
-    text-align: right; /* محاذاة النص */
-    padding: 8px;
+    padding: 10px; /* مسافة داخلية */
     border: 1px solid #46b39d;
-    border-radius: 5px;
+    border-radius: 8px; /* حواف مستديرة */
     box-sizing: border-box;
-    overflow: hidden; /* تجنب التداخل */
-    max-width: 95%; /* عرض الحقول */
-    white-space: normal; /* دعم النصوص متعددة الأسطر */
-    resize: none; /* منع المستخدم من تغيير حجم الحقول */
+    text-align: right; /* محاذاة النص */
+    width: 100%; /* عرض الحقل بالكامل */
+    max-width: 400px; /* حد أقصى للعرض */
+    resize: none; /* منع تغيير حجم الحقول */
 }
 
 .field textarea {
-    resize: none; /* منع تغيير الحجم */
-    max-width: 90%; /* تحديد عرض الحقل */
+    height: 80px; /* ارتفاع مناسب للنصوص */
+    max-width: 100%; /* حد أقصى للعرض */
+}
+
 }
 .field input:focus, .field textarea:focus {
     border-color: #103d5e;
