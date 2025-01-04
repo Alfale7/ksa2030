@@ -13,26 +13,30 @@ function login() {
     const password = document.getElementById('password').value.trim();
     const error = document.getElementById('error');
 
+    // التحقق من تعبئة الحقول
     if (!phone || !password) {
-        error.textContent = "يرجى تعبئة جميع الحقول.";
-        showError(error);
+        showError("يرجى تعبئة جميع الحقول.");
         return;
     }
 
+    // التحقق من صحة بيانات تسجيل الدخول
     if (users[phone] && users[phone] === password) {
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userName', phone);
-        window.location.href = 'choose_report.html';
+        window.location.href = 'choose_report.html'; // الانتقال إلى صفحة اختيار التقارير
     } else {
-        error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
-        showError(error);
+        showError("رقم الجوال أو كلمة المرور غير صحيحة.");
     }
 }
 
-// دالة عرض رسالة خطأ
-function showError(errorElement) {
-    errorElement.classList.add('show');
-    setTimeout(() => errorElement.classList.remove('show'), 3000);
+// دالة عرض رسالة الخطأ
+function showError(message) {
+    const error = document.getElementById('error');
+    error.textContent = message;
+    error.classList.add('show');
+
+    // إخفاء الرسالة بعد 3 ثوانٍ
+    setTimeout(() => error.classList.remove('show'), 3000);
 }
 
 // دالة فتح أو إغلاق القائمة الجانبية
