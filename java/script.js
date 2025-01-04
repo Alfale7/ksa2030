@@ -15,8 +15,7 @@ function login() {
 
     if (!phone || !password) {
         error.textContent = "يرجى تعبئة جميع الحقول.";
-        error.classList.add('show');
-        setTimeout(() => error.classList.remove('show'), 3000);
+        showError(error);
         return;
     }
 
@@ -26,9 +25,14 @@ function login() {
         window.location.href = 'choose_report.html';
     } else {
         error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
-        error.classList.add('show');
-        setTimeout(() => error.classList.remove('show'), 3000);
+        showError(error);
     }
+}
+
+// دالة عرض رسالة خطأ
+function showError(errorElement) {
+    errorElement.classList.add('show');
+    setTimeout(() => errorElement.classList.remove('show'), 3000);
 }
 
 // دالة فتح أو إغلاق القائمة الجانبية
@@ -40,9 +44,7 @@ function toggleMenu() {
 // دالة إزالة شاهد
 function removeShahid(id) {
     const shahid = document.getElementById(id);
-    if (shahid) {
-        shahid.remove();
-    }
+    if (shahid) shahid.remove();
 }
 
 // دالة إضافة شاهد جديد
@@ -59,16 +61,13 @@ function addShahid() {
         <button class="remove-btn" onclick="removeShahid('${newId}')">حذف</button>
     `;
     newShahid.setAttribute("onclick", `toggleFileInput('${newId}Input')`);
-
     shahidGrid.appendChild(newShahid);
 }
 
 // دالة فتح نافذة اختيار الملفات
 function toggleFileInput(id) {
     const fileInput = document.getElementById(id);
-    if (fileInput) {
-        fileInput.click();
-    }
+    if (fileInput) fileInput.click();
 }
 
 // دالة عرض الصورة داخل الحاوية
@@ -78,22 +77,20 @@ function displayImage(event, id) {
         const reader = new FileReader();
         reader.onload = function (e) {
             const img = document.querySelector(`#${id} img`);
-            if (img) {
-                img.src = e.target.result;
-                img.parentElement.classList.add('active');
-            }
+            if (img) img.src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
 }
+
+// دالة لتحميل التقرير كصورة
 function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر الذي يحتوي على التقرير
+    const container = document.querySelector('.container');
     if (!container) {
         alert('العنصر .container غير موجود!');
         return;
     }
 
-    // تحويل النصوص في الحقول إلى نصوص مرئية
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
@@ -111,7 +108,7 @@ function downloadAsImage() {
         textElement.style.direction = 'rtl'; // لضبط الاتجاه
         textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
         textElement.style.whiteSpace = 'pre-wrap'; // دعم النصوص متعددة الأسطر
-        textElement.textContent = input.value; // إضافة النص من الحقول
+        textElement.textContent = input.value;
         textElement.className = 'temp-element';
         container.appendChild(textElement);
         tempElements.push(textElement);
@@ -119,41 +116,18 @@ function downloadAsImage() {
         input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
     });
 
-    // تحويل التقرير إلى صورة باستخدام html2canvas
     html2canvas(container, {
-        scale: 3, // تحسين جودة الصورة
+        scale: 3,
         useCORS: true,
-        backgroundColor: '#ffffff' // تعيين خلفية بيضاء
+        backgroundColor: '#ffffff'
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف الذي سيتم تحميله
-        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
+        link.download = 'report.png';
+        link.href = canvas.toDataURL('image/png');
         link.click();
 
-        // إعادة النصوص والحقول إلى وضعها الطبيعي
         inputs.forEach(input => (input.style.visibility = 'visible'));
-        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
-    }).catch(error => {
-        console.error('خطأ أثناء إنشاء الصورة:', error);
-        alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
-    });
-}
-
-
-    // استخدام html2canvas لتحويل العنصر إلى صورة
-    html2canvas(container, {
-        scale: 3, // تحسين جودة الصورة
-        useCORS: true,
-        backgroundColor: '#ffffff', // تعيين خلفية بيضاء
-    }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف
-        link.href = canvas.toDataURL('image/png'); // تحويل إلى صورة
-        link.click();
-
-        // إعادة الحقول إلى وضعها الطبيعي
-        inputs.forEach(input => (input.style.visibility = 'visible'));
-        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
+        tempElements.forEach(el => el.remove());
     }).catch(error => {
         console.error('خطأ أثناء إنشاء الصورة:', error);
         alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
