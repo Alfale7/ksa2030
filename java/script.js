@@ -120,6 +120,27 @@ function downloadAsImage() {
         input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
     });
 
+
+const textElement = document.createElement('div');
+textElement.style.position = 'absolute';
+textElement.style.left = `${input.offsetLeft}px`;
+textElement.style.top = `${input.offsetTop}px`;
+textElement.style.width = `${input.offsetWidth}px`;
+textElement.style.height = `${input.offsetHeight}px`;
+textElement.style.fontSize = window.getComputedStyle(input).fontSize;
+textElement.style.fontFamily = 'Tahoma, Arial, sans-serif'; // خط يدعم اللغة العربية
+textElement.style.color = '#000';
+textElement.style.textAlign = 'right'; // لضبط المحاذاة
+textElement.style.direction = 'rtl'; // لضبط الاتجاه
+textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
+textElement.style.whiteSpace = 'pre-wrap'; // دعم النصوص متعددة الأسطر
+textElement.textContent = input.value; // النص من الحقل
+textElement.className = 'temp-element';
+container.appendChild(textElement);
+tempElements.push(textElement);
+
+
+
     // استخدام html2canvas لتحويل العنصر إلى صورة
     html2canvas(container, {
         scale: 3, // تحسين جودة الصورة
