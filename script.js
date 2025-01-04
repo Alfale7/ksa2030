@@ -13,22 +13,30 @@ function login() {
     const password = document.getElementById('password').value.trim();
     const error = document.getElementById('error');
 
+    // التحقق من تعبئة الحقول
     if (!phone || !password) {
-        error.textContent = "يرجى تعبئة جميع الحقول.";
-        error.classList.add('show');
-        setTimeout(() => error.classList.remove('show'), 3000);
+        showError("يرجى تعبئة جميع الحقول.");
         return;
     }
 
+    // التحقق من صحة بيانات تسجيل الدخول
     if (users[phone] && users[phone] === password) {
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userName', phone);
-        window.location.href = 'choose_report.html';
+        window.location.href = 'choose_report.html'; // الانتقال إلى صفحة اختيار التقارير
     } else {
-        error.textContent = "رقم الجوال أو كلمة المرور غير صحيحة.";
-        error.classList.add('show');
-        setTimeout(() => error.classList.remove('show'), 3000);
+        showError("رقم الجوال أو كلمة المرور غير صحيحة.");
     }
+}
+
+// دالة عرض رسالة الخطأ
+function showError(message) {
+    const error = document.getElementById('error');
+    error.textContent = message;
+    error.classList.add('show');
+
+    // إخفاء الرسالة بعد 3 ثوانٍ
+    setTimeout(() => error.classList.remove('show'), 3000);
 }
 
 // دالة فتح أو إغلاق القائمة الجانبية
@@ -40,9 +48,7 @@ function toggleMenu() {
 // دالة إزالة شاهد
 function removeShahid(id) {
     const shahid = document.getElementById(id);
-    if (shahid) {
-        shahid.remove();
-    }
+    if (shahid) shahid.remove();
 }
 
 // دالة إضافة شاهد جديد
@@ -59,16 +65,13 @@ function addShahid() {
         <button class="remove-btn" onclick="removeShahid('${newId}')">حذف</button>
     `;
     newShahid.setAttribute("onclick", `toggleFileInput('${newId}Input')`);
-
     shahidGrid.appendChild(newShahid);
 }
 
 // دالة فتح نافذة اختيار الملفات
 function toggleFileInput(id) {
     const fileInput = document.getElementById(id);
-    if (fileInput) {
-        fileInput.click();
-    }
+    if (fileInput) fileInput.click();
 }
 
 // دالة عرض الصورة داخل الحاوية
@@ -78,16 +81,14 @@ function displayImage(event, id) {
         const reader = new FileReader();
         reader.onload = function (e) {
             const img = document.querySelector(`#${id} img`);
-            if (img) {
-                img.src = e.target.result;
-                img.parentElement.classList.add('active');
-            }
+            if (img) img.src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
 }
+
 function downloadAsImage() {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.container'); // العنصر الذي يحتوي على التقرير
     if (!container) {
         alert('العنصر .container غير موجود!');
         return;
@@ -105,10 +106,12 @@ function downloadAsImage() {
         textElement.style.width = `${input.offsetWidth}px`;
         textElement.style.height = `${input.offsetHeight}px`;
         textElement.style.fontSize = window.getComputedStyle(input).fontSize;
-        textElement.style.fontFamily = window.getComputedStyle(input).fontFamily;
+        textElement.style.fontFamily = 'Tahoma, Arial, sans-serif'; // خط يدعم اللغة العربية
         textElement.style.color = '#000';
-        textElement.style.textAlign = 'right';
-        textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
+        textElement.style.textAlign = 'right'; // لضبط المحاذاة
+        textElement.style.direction = 'rtl'; // لضبط الاتجاه
+        textElement.style.lineHeight = '1.5'; // تحسين تباعد الأسطر
+        textElement.style.overflowWrap = 'break-word'; // السماح بتقسيم النص
         textElement.style.whiteSpace = 'pre-wrap'; // دعم النصوص متعددة الأسطر
         textElement.textContent = input.value; // إضافة النص من الحقول
         textElement.className = 'temp-element';
@@ -118,18 +121,18 @@ function downloadAsImage() {
         input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
     });
 
-    // استخدام html2canvas لتحويل العنصر إلى صورة
+    // تحويل التقرير إلى صورة باستخدام html2canvas
     html2canvas(container, {
         scale: 3, // تحسين جودة الصورة
         useCORS: true,
-        backgroundColor: '#ffffff', // تعيين خلفية بيضاء
+        backgroundColor: '#ffffff' // تعيين خلفية بيضاء
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف
-        link.href = canvas.toDataURL('image/png'); // تحويل إلى صورة
+        link.download = 'report.png'; // اسم الملف الذي سيتم تحميله
+        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
         link.click();
 
-        // إعادة الحقول إلى وضعها الطبيعي
+        // إعادة النصوص والحقول إلى وضعها الطبيعي
         inputs.forEach(input => (input.style.visibility = 'visible'));
         tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
     }).catch(error => {
