@@ -9,31 +9,35 @@ const users = {
 
 // دالة تسجيل الدخول
 function login() {
-    const phone = document.getElementById('phone').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const error = document.getElementById('error');
+    const phone = document.getElementById('phone').value.trim(); // الحصول على قيمة رقم الجوال
+    const password = document.getElementById('password').value.trim(); // الحصول على كلمة المرور
+    const error = document.getElementById('error'); // عنصر رسالة الخطأ
 
     // التحقق من تعبئة الحقول
     if (!phone || !password) {
-        showError("يرجى تعبئة جميع الحقول.");
+        showError("يرجى تعبئة جميع الحقول."); // عرض رسالة خطأ إذا كانت الحقول فارغة
         return;
     }
 
     // التحقق من صحة بيانات تسجيل الدخول
     if (users[phone] && users[phone] === password) {
+        // تخزين حالة تسجيل الدخول في localStorage
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userName', phone);
-        window.location.href = 'choose_report.html'; // الانتقال إلى صفحة اختيار التقارير
+
+        // الانتقال إلى صفحة اختيار التقارير
+        window.location.href = 'choose_report.html';
     } else {
+        // عرض رسالة خطأ إذا كانت بيانات تسجيل الدخول غير صحيحة
         showError("رقم الجوال أو كلمة المرور غير صحيحة.");
     }
 }
 
 // دالة عرض رسالة الخطأ
 function showError(message) {
-    const error = document.getElementById('error');
-    error.textContent = message;
-    error.classList.add('show');
+    const error = document.getElementById('error'); // عنصر رسالة الخطأ
+    error.textContent = message; // وضع الرسالة
+    error.classList.add('show'); // عرض الرسالة
 
     // إخفاء الرسالة بعد 3 ثوانٍ
     setTimeout(() => error.classList.remove('show'), 3000);
