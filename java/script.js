@@ -95,30 +95,6 @@ function downloadAsImage() {
         return;
     }
 
-    // تحويل النصوص في الحقول إلى نصوص مرئية
-    const inputs = container.querySelectorAll('input, textarea');
-    const tempElements = [];
-
-    inputs.forEach(input => {
-        const textElement = document.createElement('div');
-        textElement.style.position = 'absolute';
-        textElement.style.left = `${input.offsetLeft}px`;
-        textElement.style.top = `${input.offsetTop}px`;
-        textElement.style.width = `${input.offsetWidth}px`;
-        textElement.style.height = `${input.offsetHeight}px`;
-        textElement.style.fontSize = window.getComputedStyle(input).fontSize;
-        textElement.style.fontFamily = window.getComputedStyle(input).fontFamily;
-        textElement.style.color = '#000';
-        textElement.style.textAlign = 'right';
-        textElement.style.lineHeight = window.getComputedStyle(input).lineHeight;
-        textElement.style.whiteSpace = 'pre-wrap'; // دعم النصوص متعددة الأسطر
-        textElement.textContent = input.value; // إضافة النص من الحقول
-        textElement.className = 'temp-element';
-        container.appendChild(textElement);
-        tempElements.push(textElement);
-
-        input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
-    });
 
 
 const textElement = document.createElement('div');
