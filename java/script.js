@@ -121,3 +121,45 @@ function downloadAsImage() {
         alert('An error occurred while generating the image. Please try again.');
     });
 }
+
+// بيانات المستخدمين (رقم الجوال وكلمة المرور)
+const users = {
+    "0504854223": "1122", // رقم الجوال وكلمة المرور
+    "0506399549": "1234",
+    "0551234567": "3344"
+};
+
+// دالة تسجيل الدخول
+function login() {
+    // جلب قيم الحقول
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const errorElement = document.getElementById('error');
+
+    // التحقق من تعبئة الحقول
+    if (!phone || !password) {
+        showError("يرجى تعبئة جميع الحقول.", errorElement);
+        return;
+    }
+
+    // التحقق من صحة البيانات
+    if (users[phone] && users[phone] === password) {
+        // حفظ بيانات الدخول في Local Storage
+        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('userPhone', phone);
+        
+        // الانتقال إلى صفحة أخرى (اختر اسم الصفحة)
+        window.location.href = 'choose_report.html';
+    } else {
+        showError("رقم الجوال أو كلمة المرور غير صحيحة.", errorElement);
+    }
+}
+
+// دالة عرض رسالة الخطأ
+function showError(message, element) {
+    element.textContent = message;
+    element.classList.add('show');
+
+    // إخفاء الرسالة بعد 3 ثوانٍ
+    setTimeout(() => element.classList.remove('show'), 3000);
+}
