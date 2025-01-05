@@ -100,6 +100,14 @@ function downloadAsImage() {
         textElement.style.boxSizing = 'border-box';
         textElement.textContent = input.value || input.placeholder;
         textElement.className = 'temp-element';
+
+        // Adjust text element to prevent overlapping
+        textElement.style.wordBreak = 'break-word';
+        textElement.style.display = 'flex';
+        textElement.style.alignItems = 'center';
+        textElement.style.justifyContent = 'center';
+        textElement.style.padding = '5px';
+
         container.appendChild(textElement);
         tempElements.push(textElement);
 
