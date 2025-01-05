@@ -85,8 +85,8 @@ function downloadAsImage() {
 
         const textElement = document.createElement('div');
         textElement.style.position = 'absolute';
-        textElement.style.left = `${rect.left - containerRect.left + container.scrollLeft}px`;
-        textElement.style.top = `${rect.top - containerRect.top + container.scrollTop}px`;
+        textElement.style.left = `${rect.left - containerRect.left}px`;
+        textElement.style.top = `${rect.top - containerRect.top}px`;
         textElement.style.width = `${rect.width}px`;
         textElement.style.height = `${rect.height}px`;
         textElement.style.fontSize = style.fontSize;
@@ -94,19 +94,13 @@ function downloadAsImage() {
         textElement.style.color = style.color;
         textElement.style.textAlign = style.textAlign;
         textElement.style.lineHeight = style.lineHeight;
-        textElement.style.overflowWrap = 'break-word';
-        textElement.style.whiteSpace = 'pre-wrap';
         textElement.style.padding = style.padding;
         textElement.style.boxSizing = 'border-box';
         textElement.textContent = input.value || input.placeholder;
         textElement.className = 'temp-element';
 
-        // Adjust text element to prevent overlapping
-        textElement.style.wordBreak = 'break-word';
-        textElement.style.display = 'flex';
-        textElement.style.alignItems = 'center';
-        textElement.style.justifyContent = 'center';
-        textElement.style.padding = '5px';
+        // Adding a background to match input field for better alignment visibility
+        textElement.style.backgroundColor = 'white';
 
         container.appendChild(textElement);
         tempElements.push(textElement);
@@ -133,7 +127,6 @@ function downloadAsImage() {
         alert('An error occurred while generating the image. Please try again.');
     });
 }
-
 
 // بيانات المستخدمين (رقم الجوال وكلمة المرور)
 const users = {
