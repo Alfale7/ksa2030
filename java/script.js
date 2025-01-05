@@ -96,11 +96,15 @@ function downloadAsImage() {
         textElement.style.lineHeight = style.lineHeight;
         textElement.style.padding = style.padding;
         textElement.style.boxSizing = 'border-box';
+        textElement.style.display = 'flex';
+        textElement.style.alignItems = 'center';
+        textElement.style.justifyContent = 'center';
         textElement.textContent = input.value || input.placeholder;
         textElement.className = 'temp-element';
 
-        // Adding a background to match input field for better alignment visibility
+        // Background and border adjustments to mimic the input fields
         textElement.style.backgroundColor = 'white';
+        textElement.style.border = '1px solid #46b39d';
 
         container.appendChild(textElement);
         tempElements.push(textElement);
@@ -127,7 +131,6 @@ function downloadAsImage() {
         alert('An error occurred while generating the image. Please try again.');
     });
 }
-
 // بيانات المستخدمين (رقم الجوال وكلمة المرور)
 const users = {
     "0504854223": "1122", // رقم الجوال وكلمة المرور
