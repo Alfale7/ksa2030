@@ -15,15 +15,24 @@
 
 </head>
 <body>
+
     <div class="container">
-        <div class="header">
-            <div class="text">
-                وزارة التعليم<br>
-                الإدارة العامة للتعليم<br>
-                مكتب التعليم بمنطقة <input type="text" placeholder="اسم المنطقة" class="header-input">
-            </div>
-            <img src="logo.png" alt="شعار وزارة التعليم" class="logo">
-        </div>
+<div class="header">
+    <div class="text">
+        وزارة التعليم<br>
+        الإدارة العامة للتعليم<br>
+        مكتب التعليم بمنطقة 
+        <input 
+            type="text" 
+            id="regionInput" 
+            placeholder="أدخل منطقتك هنا" 
+            oninput="updateRegion()" 
+            style="border: none; border-bottom: 1px solid #fff; background: transparent; color: #fff; outline: none; font-size: 1em; width: 150px; text-align: center;">
+    </div>
+    <img src="logo.png" alt="شعار وزارة التعليم" class="logo">
+</div>
+
+<input type="text" style="width: 100%; height: 40px; text-align: center; border: 1px solid #46b39d;">
 
         <div class="fields">
             <div class="field">
@@ -39,7 +48,7 @@
 
             <div class="field">
                 <label for="beneficiaries">المستفيدون:</label>
-                <input type="text" id="beneficiaries" placeholder="عدد المستفيدين">
+                <input type="text" id="beneficiaries" placeholder="معلمون طلاب ...">
             </div>
 
             <div class="field">
@@ -94,7 +103,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
->
+
 
 <div class="buttons" style="display: flex; justify-content: space-between; margin-top: 20px;">
     <button class="logout" onclick="location.href='login.html'" style="padding: 10px 20px; background-color: #1e5a6a; color: white; border: none; border-radius: 5px; cursor: pointer;">
