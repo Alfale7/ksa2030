@@ -66,6 +66,7 @@ function displayImage(event, id) {
 }
 
 
+
 function downloadAsImage() {
     const container = document.querySelector('.container');
     if (!container) {
@@ -79,12 +80,13 @@ function downloadAsImage() {
 
     inputs.forEach(input => {
         const rect = input.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
         const style = window.getComputedStyle(input);
 
         const textElement = document.createElement('div');
         textElement.style.position = 'absolute';
-        textElement.style.left = `${rect.left - container.getBoundingClientRect().left}px`;
-        textElement.style.top = `${rect.top - container.getBoundingClientRect().top}px`;
+        textElement.style.left = `${rect.left - containerRect.left + container.scrollLeft}px`;
+        textElement.style.top = `${rect.top - containerRect.top + container.scrollTop}px`;
         textElement.style.width = `${rect.width}px`;
         textElement.style.height = `${rect.height}px`;
         textElement.style.fontSize = style.fontSize;
@@ -123,6 +125,7 @@ function downloadAsImage() {
         alert('An error occurred while generating the image. Please try again.');
     });
 }
+
 
 // بيانات المستخدمين (رقم الجوال وكلمة المرور)
 const users = {
