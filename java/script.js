@@ -66,7 +66,6 @@ function displayImage(event, id) {
 }
 
 
-
 function downloadAsImage() {
     const container = document.querySelector('.container');
     if (!container) {
@@ -74,7 +73,6 @@ function downloadAsImage() {
         return;
     }
 
-    // Collect all input and textarea elements and convert them to visible text
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
@@ -92,10 +90,14 @@ function downloadAsImage() {
         textElement.style.fontSize = computedStyle.fontSize;
         textElement.style.fontFamily = computedStyle.fontFamily;
         textElement.style.color = computedStyle.color;
-        textElement.style.textAlign = 'center';
+        textElement.style.textAlign = computedStyle.textAlign || 'center';
         textElement.style.lineHeight = computedStyle.lineHeight;
+        textElement.style.display = 'flex';
+        textElement.style.alignItems = 'center';
+        textElement.style.justifyContent = 'center';
         textElement.style.padding = '5px';
-        textElement.style.border = '1px solid #ddd';
+        textElement.style.whiteSpace = 'nowrap'; // Prevent text wrapping
+        textElement.style.overflow = 'hidden';
         textElement.textContent = input.value || input.placeholder;
         textElement.className = 'temp-element';
 
@@ -105,30 +107,16 @@ function downloadAsImage() {
         input.style.visibility = 'hidden';
     });
 
-    // Render container to canvas
     html2canvas(container, {
         scale: 3,
         useCORS: true,
         backgroundColor: '#ffffff'
     }).then(canvas => {
-        const canvasElement = document.createElement('canvas');
-        const context = canvasElement.getContext('2d');
-        
-        // Set canvas size and draw the existing canvas onto it
-        canvasElement.width = canvas.width;
-        canvasElement.height = canvas.height;
-        context.drawImage(canvas, 0, 0);
-
-        // Convert to JPG with quality settings
-        const jpgDataUrl = canvasElement.toDataURL('image/jpeg', 0.9);
-
-        // Download the JPG file
         const link = document.createElement('a');
         link.download = 'report.jpg';
-        link.href = jpgDataUrl;
+        link.href = canvas.toDataURL('image/jpeg', 0.95);
         link.click();
 
-        // Restore inputs and remove temporary text elements
         inputs.forEach(input => (input.style.visibility = 'visible'));
         tempElements.forEach(el => el.remove());
     }).catch(error => {
