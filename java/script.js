@@ -138,9 +138,9 @@ function downloadAsImage() {
 
 
 
-}// بيانات المستخدمين (رقم الجوال وكلمة المرور)
+// بيانات المستخدمين (رقم الجوال وكلمة المرور)
 const users = {
-    "0504854223": "1122", // رقم الجوال وكلمة المرور
+    "0504854223": "1122", // مثال على رقم الجوال وكلمة المرور
     "0506399549": "1234",
     "0551234567": "3344"
 };
@@ -163,9 +163,9 @@ function login() {
         // حفظ بيانات الدخول في Local Storage
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userPhone', phone);
-        
-        // الانتقال إلى صفحة أخرى (اختر اسم الصفحة)
-        window.location.href = 'choose_report.html';
+
+        // الانتقال إلى الصفحة التالية
+        window.location.href = 'choose_report.html'; // اسم الصفحة التي تريد فتحها
     } else {
         showError("رقم الجوال أو كلمة المرور غير صحيحة.", errorElement);
     }
@@ -174,8 +174,9 @@ function login() {
 // دالة عرض رسالة الخطأ
 function showError(message, element) {
     element.textContent = message;
-    element.classList.add('show');
+    element.style.color = "red";
+    element.style.display = "block";
 
     // إخفاء الرسالة بعد 3 ثوانٍ
-    setTimeout(() => element.classList.remove('show'), 3000);
+    setTimeout(() => (element.style.display = "none"), 3000);
 }
