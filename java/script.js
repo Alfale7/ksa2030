@@ -1,59 +1,23 @@
-// تخزين بيانات المستخدمين داخل كائن JavaScript
-const users = {
-    "0504854223": "1122",
-    "0506399549": "1234",
-    "0503026554": "1122",
-    "0551234567": "3344",
-    "0559876543": "5566"
-};
 
-// دالة تسجيل الدخول
-function login() {
-    const phone = document.getElementById('phone').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const error = document.getElementById('error');
+const shahidGrid = document.getElementById("shahid-grid");
 
-    // التحقق من تعبئة الحقول
-    if (!phone || !password) {
-        showError("يرجى تعبئة جميع الحقول.");
-        return;
-    }
-
-    // التحقق من صحة بيانات تسجيل الدخول
-    if (users[phone] && users[phone] === password) {
-        localStorage.setItem('isLoggedIn', true);
-        localStorage.setItem('userName', phone);
-        window.location.href = 'choose_report.html'; // الانتقال إلى صفحة اختيار التقارير
-    } else {
-        showError("رقم الجوال أو كلمة المرور غير صحيحة.");
-    }
-}
-
-// دالة عرض رسالة الخطأ
-function showError(message) {
-    const error = document.getElementById('error');
-    error.textContent = message;
-    error.classList.add('show');
-
-    // إخفاء الرسالة بعد 3 ثوانٍ
-    setTimeout(() => error.classList.remove('show'), 3000);
-}
-
-// دالة فتح أو إغلاق القائمة الجانبية
-function toggleMenu() {
-    const menu = document.getElementById('sideMenu');
-    menu.classList.toggle('open');
-}
-
-// دالة إزالة شاهد
+// Function to remove a witness (shahid)
 function removeShahid(id) {
     const shahid = document.getElementById(id);
-    if (shahid) shahid.remove();
+    if (shahid) {
+        shahid.remove();
+        console.log(`Removed shahid: ${id}`);
+    } else {
+        console.error(`Shahid with ID ${id} not found`);
+    }
 }
 
-// دالة إضافة شاهد جديد
+// Function to add a new witness (shahid)
 function addShahid() {
-    const shahidGrid = document.getElementById("shahid-grid");
+    if (!shahidGrid) {
+        console.error("Shahid grid not found.");
+        return;
+    }
     const newId = `shahid${shahidGrid.children.length + 1}`;
     const newShahid = document.createElement("div");
     newShahid.className = "shahid";
@@ -61,82 +25,99 @@ function addShahid() {
 
     newShahid.innerHTML = `
         <input type="file" id="${newId}Input" accept="image/*" onchange="displayImage(event, '${newId}')">
-        <img src="" alt="شاهد جديد">
-        <button class="remove-btn" onclick="removeShahid('${newId}')">حذف</button>
+        <img src="" alt="New Shahid">
+        <button class="remove-btn" onclick="removeShahid('${newId}')">Delete</button>
     `;
     newShahid.setAttribute("onclick", `toggleFileInput('${newId}Input')`);
     shahidGrid.appendChild(newShahid);
+
+    console.log(`Added new shahid with ID: ${newId}`);
 }
 
-// دالة فتح نافذة اختيار الملفات
+// Function to simulate file input click
 function toggleFileInput(id) {
     const fileInput = document.getElementById(id);
-    if (fileInput) fileInput.click();
+    if (fileInput) {
+        fileInput.click();
+        console.log(`Opened file input for ID: ${id}`);
+    } else {
+        console.error(`File input with ID ${id} not found`);
+    }
 }
 
-// دالة عرض الصورة داخل الحاوية
+// Function to display uploaded image inside a shahid
 function displayImage(event, id) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
             const img = document.querySelector(`#${id} img`);
-            if (img) img.src = e.target.result;
+            if (img) {
+                img.src = e.target.result;
+                console.log(`Displayed image for ID: ${id}`);
+            } else {
+                console.error(`Image element for ID ${id} not found`);
+            }
         };
         reader.readAsDataURL(file);
+    } else {
+        console.error("No file selected.");
     }
 }
 
+// Function to download the report as an image
 function downloadAsImage() {
-    const container = document.querySelector('.container'); // العنصر الذي يحتوي على التقرير
+    const container = document.querySelector('.container');
     if (!container) {
-        alert('العنصر .container غير موجود!');
+        alert('Container not found!');
         return;
     }
 
-    // تحويل النصوص في الحقول إلى نصوص مرئية
+    // Temporarily replace inputs with visible text for rendering
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
     inputs.forEach(input => {
+        const rect = input.getBoundingClientRect();
+        const computedStyle = window.getComputedStyle(input);
+
         const textElement = document.createElement('div');
         textElement.style.position = 'absolute';
-        textElement.style.left = `${input.offsetLeft}px`;
-        textElement.style.top = `${input.offsetTop}px`;
-        textElement.style.width = `${input.offsetWidth}px`;
-        textElement.style.height = `${input.offsetHeight}px`;
-        textElement.style.fontSize = window.getComputedStyle(input).fontSize;
-        textElement.style.fontFamily = 'Tahoma, Arial, sans-serif'; // خط يدعم اللغة العربية
-        textElement.style.color = '#000';
-        textElement.style.textAlign = 'right'; // لضبط المحاذاة
-        textElement.style.direction = 'rtl'; // لضبط الاتجاه
-        textElement.style.lineHeight = '1.5'; // تحسين تباعد الأسطر
-        textElement.style.overflowWrap = 'break-word'; // السماح بتقسيم النص
-        textElement.style.whiteSpace = 'pre-wrap'; // دعم النصوص متعددة الأسطر
-        textElement.textContent = input.value; // إضافة النص من الحقول
+        textElement.style.left = `${rect.left - container.offsetLeft}px`;
+        textElement.style.top = `${rect.top - container.offsetTop}px`;
+        textElement.style.width = `${rect.width}px`;
+        textElement.style.height = `${rect.height}px`;
+        textElement.style.fontSize = computedStyle.fontSize;
+        textElement.style.fontFamily = computedStyle.fontFamily;
+        textElement.style.color = computedStyle.color;
+        textElement.style.textAlign = computedStyle.textAlign;
+        textElement.style.lineHeight = computedStyle.lineHeight;
+        textElement.style.overflowWrap = 'break-word';
+        textElement.style.whiteSpace = 'pre-wrap';
+        textElement.textContent = input.value || input.placeholder;
         textElement.className = 'temp-element';
         container.appendChild(textElement);
         tempElements.push(textElement);
 
-        input.style.visibility = 'hidden'; // إخفاء الحقول الأصلية
+        input.style.visibility = 'hidden'; // Hide original input
     });
 
-    // تحويل التقرير إلى صورة باستخدام html2canvas
+    // Render the container as an image
     html2canvas(container, {
-        scale: 3, // تحسين جودة الصورة
+        scale: 2,
         useCORS: true,
-        backgroundColor: '#ffffff' // تعيين خلفية بيضاء
+        backgroundColor: '#ffffff'
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png'; // اسم الملف الذي سيتم تحميله
-        link.href = canvas.toDataURL('image/png'); // تحويل الصورة إلى صيغة PNG
+        link.download = 'report.png';
+        link.href = canvas.toDataURL('image/png');
         link.click();
 
-        // إعادة النصوص والحقول إلى وضعها الطبيعي
+        // Restore original inputs and remove temporary text elements
         inputs.forEach(input => (input.style.visibility = 'visible'));
-        tempElements.forEach(el => el.remove()); // إزالة العناصر المؤقتة
+        tempElements.forEach(el => el.remove());
     }).catch(error => {
-        console.error('خطأ أثناء إنشاء الصورة:', error);
-        alert('حدث خطأ أثناء إنشاء الصورة. الرجاء المحاولة لاحقًا.');
+        console.error('Error generating image:', error);
+        alert('An error occurred while generating the image. Please try again.');
     });
 }
