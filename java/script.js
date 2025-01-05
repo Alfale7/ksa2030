@@ -81,7 +81,7 @@ function downloadAsImage() {
     inputs.forEach(input => {
         const rect = input.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
-        const style = window.getComputedStyle(input);
+        const computedStyle = window.getComputedStyle(input);
 
         const textElement = document.createElement('div');
         textElement.style.position = 'absolute';
@@ -89,22 +89,15 @@ function downloadAsImage() {
         textElement.style.top = `${rect.top - containerRect.top}px`;
         textElement.style.width = `${rect.width}px`;
         textElement.style.height = `${rect.height}px`;
-        textElement.style.fontSize = style.fontSize;
-        textElement.style.fontFamily = style.fontFamily;
-        textElement.style.color = style.color;
-        textElement.style.textAlign = style.textAlign;
-        textElement.style.lineHeight = style.lineHeight;
-        textElement.style.padding = style.padding;
-        textElement.style.boxSizing = 'border-box';
-        textElement.style.display = 'flex';
-        textElement.style.alignItems = 'center';
-        textElement.style.justifyContent = 'center';
+        textElement.style.fontSize = computedStyle.fontSize;
+        textElement.style.fontFamily = computedStyle.fontFamily;
+        textElement.style.color = computedStyle.color;
+        textElement.style.textAlign = 'center'; // Center align text
+        textElement.style.lineHeight = computedStyle.lineHeight;
+        textElement.style.padding = '5px';
+        textElement.style.border = '1px solid #ddd';
         textElement.textContent = input.value || input.placeholder;
         textElement.className = 'temp-element';
-
-        // Background and border adjustments to mimic the input fields
-        textElement.style.backgroundColor = 'white';
-        textElement.style.border = '1px solid #46b39d';
 
         container.appendChild(textElement);
         tempElements.push(textElement);
@@ -119,19 +112,19 @@ function downloadAsImage() {
         backgroundColor: '#ffffff'
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'report.png';
-        link.href = canvas.toDataURL('image/png');
+        link.download = 'report.jpg'; // Save as JPG
+        link.href = canvas.toDataURL('image/jpeg', 0.9); // Convert to JPG with high quality
         link.click();
 
-        // Restore inputs and remove temporary text elements
         inputs.forEach(input => (input.style.visibility = 'visible'));
         tempElements.forEach(el => el.remove());
     }).catch(error => {
         console.error('Error generating image:', error);
-        alert('An error occurred while generating the image. Please try again.');
     });
 }
-// بيانات المستخدمين (رقم الجوال وكلمة المرور)
+
+
+}// بيانات المستخدمين (رقم الجوال وكلمة المرور)
 const users = {
     "0504854223": "1122", // رقم الجوال وكلمة المرور
     "0506399549": "1234",
