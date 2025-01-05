@@ -65,7 +65,7 @@ function displayImage(event, id) {
     }
 }
 
-// Function to download the report as an image
+
 function downloadAsImage() {
     const container = document.querySelector('.container');
     if (!container) {
@@ -73,38 +73,40 @@ function downloadAsImage() {
         return;
     }
 
-    // Temporarily replace inputs with visible text for rendering
+    // Collect all input and textarea elements and convert them to visible text
     const inputs = container.querySelectorAll('input, textarea');
     const tempElements = [];
 
     inputs.forEach(input => {
         const rect = input.getBoundingClientRect();
-        const computedStyle = window.getComputedStyle(input);
+        const style = window.getComputedStyle(input);
 
         const textElement = document.createElement('div');
         textElement.style.position = 'absolute';
-        textElement.style.left = `${rect.left - container.offsetLeft}px`;
-        textElement.style.top = `${rect.top - container.offsetTop}px`;
+        textElement.style.left = `${rect.left - container.getBoundingClientRect().left}px`;
+        textElement.style.top = `${rect.top - container.getBoundingClientRect().top}px`;
         textElement.style.width = `${rect.width}px`;
         textElement.style.height = `${rect.height}px`;
-        textElement.style.fontSize = computedStyle.fontSize;
-        textElement.style.fontFamily = computedStyle.fontFamily;
-        textElement.style.color = computedStyle.color;
-        textElement.style.textAlign = computedStyle.textAlign;
-        textElement.style.lineHeight = computedStyle.lineHeight;
+        textElement.style.fontSize = style.fontSize;
+        textElement.style.fontFamily = style.fontFamily;
+        textElement.style.color = style.color;
+        textElement.style.textAlign = style.textAlign;
+        textElement.style.lineHeight = style.lineHeight;
         textElement.style.overflowWrap = 'break-word';
         textElement.style.whiteSpace = 'pre-wrap';
+        textElement.style.padding = style.padding;
+        textElement.style.boxSizing = 'border-box';
         textElement.textContent = input.value || input.placeholder;
         textElement.className = 'temp-element';
         container.appendChild(textElement);
         tempElements.push(textElement);
 
-        input.style.visibility = 'hidden'; // Hide original input
+        input.style.visibility = 'hidden';
     });
 
-    // Render the container as an image
+    // Render container to canvas
     html2canvas(container, {
-        scale: 2,
+        scale: 3,
         useCORS: true,
         backgroundColor: '#ffffff'
     }).then(canvas => {
@@ -113,7 +115,7 @@ function downloadAsImage() {
         link.href = canvas.toDataURL('image/png');
         link.click();
 
-        // Restore original inputs and remove temporary text elements
+        // Restore inputs and remove temporary text elements
         inputs.forEach(input => (input.style.visibility = 'visible'));
         tempElements.forEach(el => el.remove());
     }).catch(error => {
