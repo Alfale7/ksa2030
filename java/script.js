@@ -1,6 +1,4 @@
 
-
-
 const shahidGrid = document.getElementById("shahid-grid");
 
 // Function to remove a witness (shahid)
@@ -16,8 +14,9 @@ function removeShahid(id) {
 
 // Function to add a new witness (shahid)
 function addShahid() {
+    const shahidGrid = document.getElementById("shahid-grid");
     if (!shahidGrid) {
-        console.error("Shahid grid not found.");
+        console.error("Element with ID 'shahid-grid' not found.");
         return;
     }
     const newId = `shahid${shahidGrid.children.length + 1}`;
@@ -27,13 +26,10 @@ function addShahid() {
 
     newShahid.innerHTML = `
         <input type="file" id="${newId}Input" accept="image/*" onchange="displayImage(event, '${newId}')">
-        <img src="" alt="New Shahid">
-        <button class="remove-btn" onclick="removeShahid('${newId}')">Delete</button>
+        <img src="" alt="شاهد جديد">
+        <button class="remove-btn" onclick="removeShahid('${newId}')">حذف</button>
     `;
-    newShahid.setAttribute("onclick", `toggleFileInput('${newId}Input')`);
     shahidGrid.appendChild(newShahid);
-
-    console.log(`Added new shahid with ID: ${newId}`);
 }
 
 // Function to simulate file input click
@@ -56,7 +52,6 @@ function displayImage(event, id) {
             const img = document.querySelector(`#${id} img`);
             if (img) {
                 img.src = e.target.result;
-                console.log(`Displayed image for ID: ${id}`);
             } else {
                 console.error(`Image element for ID ${id} not found`);
             }
@@ -128,45 +123,45 @@ function downloadAsImage() {
 
 
 
-‎// بيانات المستخدمين (رقم الجوال وكلمة المرور)
+// بيانات المستخدمين (رقم الجوال وكلمة المرور)
 const users = {
-‎    "0504854223": "1122", // مثال على رقم الجوال وكلمة المرور
+    "0504854223": "1122", // مثال على رقم الجوال وكلمة المرور
     "0506399549": "1234",
     "0551234567": "3344"
 };
 
-‎// دالة تسجيل الدخول
+// دالة تسجيل الدخول
 function login() {
-‎    // جلب قيم الحقول
+    // جلب قيم الحقول
     const phone = document.getElementById('phone').value.trim();
     const password = document.getElementById('password').value.trim();
     const errorElement = document.getElementById('error');
 
-‎    // التحقق من تعبئة الحقول
+    // التحقق من تعبئة الحقول
     if (!phone || !password) {
         showError("يرجى تعبئة جميع الحقول.", errorElement);
         return;
     }
 
-‎    // التحقق من صحة البيانات
+    // التحقق من صحة البيانات
     if (users[phone] && users[phone] === password) {
-‎        // حفظ بيانات الدخول في Local Storage
+        // حفظ بيانات الدخول في Local Storage
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('userPhone', phone);
 
-‎        // الانتقال إلى الصفحة التالية
+        // الانتقال إلى الصفحة التالية
         window.location.href = 'choose_report.html'; // اسم الصفحة التي تريد فتحها
     } else {
         showError("رقم الجوال أو كلمة المرور غير صحيحة.", errorElement);
     }
 }
 
-‎// دالة عرض رسالة الخطأ
+// دالة عرض رسالة الخطأ
 function showError(message, element) {
     element.textContent = message;
     element.style.color = "red";
     element.style.display = "block";
 
-‎    // إخفاء الرسالة بعد 3 ثوانٍ
+    // إخفاء الرسالة بعد 3 ثوانٍ
     setTimeout(() => (element.style.display = "none"), 3000);
 }
