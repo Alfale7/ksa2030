@@ -1,5 +1,22 @@
 
-/* تصميم الحاويات الرئيسية */
+
+‎/* تحسين الأزرار */
+button {
+    transition: transform 0.2s, background-color 0.2s;
+    background: linear-gradient(45deg, #0D2F3B, #1E5A6A);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(45deg, #1E5A6A, #0D2F3B);
+    color: #ffffff;
+}
+
+‎/* تصميم الحاويات الرئيسية */
 .container {
     width: 90%;
     max-width: 90%;
@@ -14,7 +31,7 @@
     position: relative;
 }
 
-/* تحسين رأس الصفحة */
+‎/* تحسين رأس الصفحة */
 .header {
     grid-column: span 2;
     background: linear-gradient(to right, #103d5e, #46b39d);
@@ -25,39 +42,18 @@
     align-items: center;
     border-radius: 20px;
 }
-
-.header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0));
-    transform: rotate(45deg);
-    z-index: 0;
+.header .logo {
+    width: 120px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
 }
-
-.header img {
-    width: 100px; /* عرض الشعار */
-    height: auto; /* الحفاظ على تناسب الأبعاد */
-    z-index: 1; /* التأكد أن الشعار يظهر فوق الخلفية */
-    border-radius: 8px; /* حواف مستديرة للشعار */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* إضافة ظل للشعار */
-    transition: transform 0.3s, box-shadow 0.3s; /* تأثير عند التمرير */
-}
-
-.header img:hover {
-    transform: scale(1.1); /* تكبير الشعار عند التمرير */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير */
-}
-
 .header .text {
-    font-size: 16px; /* حجم النص */
-    z-index: 1; /* التأكد أن النص يظهر فوق تأثير الخلفية */
+    text-align: center;
+    font-size: 18px;
 }
 
-/* تصميم الحقول */
+‎/* تصميم الحقول */
 .fields {
     grid-column: span 2;
     display: grid;
@@ -90,7 +86,7 @@
     outline: none;
 }
 
-/* تحسين النصوص عند التحويل */
+‎/* تحسين النصوص عند التحويل */
 .temp-element {
     position: absolute;
     font-size: 16px;
@@ -100,7 +96,7 @@
     background: transparent;
 }
 
-/* تحسين الأزرار */
+‎/* تحسين الأزرار */
 .buttons {
     grid-column: span 2;
     display: flex;
@@ -115,12 +111,11 @@
 }
 
 body {
-    font-family: 'Cairo', Arial, sans-serif;
+    font-family: 'Cairo', 'Tajawal', Arial, sans-serif; /* أضف الخطوط هنا */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: linear-gradient(to bottom, #009688, #b2dfdb); /* الخلفية الفيروزية المتدرجة */
-    color: #333; /* لون النص الأساسي */
+    background: linear-gradient(to bottom, #e6f7ff, #cceeff);
 }
 
 .field input, .field textarea {
@@ -147,7 +142,7 @@ body {
     outline: none;
 }
 
-/* تصميم الشواهد */
+‎/* تصميم الشواهد */
 .shahid-section {
     grid-column: span 2;
     display: flex;
@@ -171,7 +166,6 @@ body {
     color: white;
     position: relative;
 }
-
 .shahid img {
     max-width: 90%;
     max-height: 90%;
@@ -204,9 +198,7 @@ body {
     cursor: pointer;
 }
 
-
-
-/* تصميم الأزرار */
+‎/* تصميم الأزرار */
 .buttons {
     grid-column: span 2;
     display: flex;
@@ -236,9 +228,18 @@ body {
     transform: scale(1.05);
 }
 
-
-/* تحسين للأجهزة الصغيرة */
+‎/* تحسين للأجهزة الصغيرة */
 @media (max-width: 600px) {
     .container {
         grid-template-columns: 1fr;
     }
+    .header {
+        font-size: 0.9em;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header .logo {
+        align-self: flex-end;
+        margin-top: 10px;
+    }
+}
