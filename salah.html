@@ -370,24 +370,5 @@
     </button>
 </div>
 
-<script>
-    function downloadAsImage() {
-        // إخفاء الأزرار
-        document.getElementById("downloadButton").style.display = "none";
-        document.getElementById("logoutButton").style.display = "none";
-        document.getElementById("backButton").style.display = "none";
-
-        // تنفيذ عملية التحميل (ضع هنا كود تحميل التقرير)
-        setTimeout(function () {
-            alert("تم تحميل التقرير بنجاح!");
-
-            // إعادة إظهار الأزرار بعد التحميل (اختياري)
-            document.getElementById("downloadButton").style.display = "inline-block";
-            document.getElementById("logoutButton").style.display = "inline-block";
-            document.getElementById("backButton").style.display = "inline-block";
-        }, 2000); // محاكاة تحميل يستغرق ثانيتين
-    }
-</script>
-
 </body>
 </html>
