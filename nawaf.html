@@ -343,10 +343,15 @@ body {
 </div>
 
     
-        <div class="fields">
+         <div class="fields">
             <div class="field">
-                <label for="name">المنفذ/ة:</label>
+                <label for="name">المنفذ:</label>
                 <input type="text" id="name" placeholder="اسم المنفذ">
+            </div>
+
+            <div class="field">
+                <label for="manager">مدير المدرسة:</label>
+                <input type="text" id="manager" placeholder="اسم مدير المدرسة">
             </div>
 
             <div class="field">
@@ -354,9 +359,9 @@ body {
                 <input type="text" id="location" placeholder="مكان التنفيذ">
             </div>
 
-             <div class="field">
-                <label for="location">وصف البرنامج:</label>
-                <input type="text" id="location" placeholder="أكتب الوصف">
+            <div class="field">
+                <label for="objectives">الأهداف:</label>
+                <textarea id="objectives" rows="4" placeholder="اكتب الأهداف هنا..."></textarea>
             </div>
 
             <div class="field">
@@ -364,32 +369,13 @@ body {
                 <input type="text" id="beneficiaries" placeholder="عدد المستفيدين">
             </div>
 
-      <div class="field">
-                <label for="beneficiaries">الفئة المستهدفه:</label>
-                <input type="text" id="beneficiaries" placeholder="الفئه المستهدفه">
-            </div>
-
             <div class="field">
                 <label for="date">تاريخ التنفيذ:</label>
                 <input type="date" id="date">
             </div>
-
-            <div class="field">
-                <label for="manager">مدير/ة المدرسة:</label>
-                <input type="text" id="manager" placeholder="اسم مدير المدرسة">
-            </div>
-
-            <div class="field">
-                <label for="objectives">الأهداف:</label>
-                <textarea id="objectives" rows="4" placeholder="اكتب الأهداف هنا..."></textarea>
-            </div>
         </div>
 
-     
-
-
-
-   <div class="shahid-section">
+        <div class="shahid-section">
             <h3>الشواهد ⤵️</h3>
             <div class="shahid-grid">
                 <div id="shahid1" class="shahid" onclick="toggleFileInput('shahid1Input')">
@@ -410,6 +396,7 @@ body {
                 </div>
             </div>
         </div>
+
 
         <div class="buttons">
             <button class="download" onclick="downloadAsImage()">تحميل التقرير</button>
