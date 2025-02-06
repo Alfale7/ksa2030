@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختر التصميم المناسب</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 36px;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            overflow-x: auto; /* للسماح بالتمرير الأفقي عند الحاجة */
+            white-space: nowrap; /* منع العناصر من النزول للسطر التالي */
+        }
+
+        .option {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            width: 350px; /* حجم أكبر */
+            overflow: hidden;
+            display: inline-block; /* جعل العناصر تبقى بجانب بعض */
+        }
+
+        .option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .option img {
+            width: 100%;
+            height: 600px; /* ارتفاع أكبر لعرض التصميم بوضوح */
+            object-fit: fill;
+        }
+
+        .option h2 {
+            background-color: #007BFF;
+            color: white;
+            margin: 0;
+            padding: 15px;
+            font-size: 20px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .option {
+                width: 300px;
+                height: auto;
+            }
+
+            .option img {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>اختر التصميم المناسب</h1>
+
+    <div class="container">
+        <!-- خيار تصميم 1 -->
+        <div class="option" onclick="location.href='nawaf.html'">
+            <img src="photoo1.png" alt="تصميم 1">
+            <h2>تصميم 1</h2>
+        </div>
+
+        <!-- خيار تصميم 2 -->
+        <div class="option" onclick="location.href='salah.html'">
+            <img src="photoo2.png" alt="تصميم 2">
+            <h2>تصميم 2</h2>
+        </div>
+    </div>
+</body>
+</html>
