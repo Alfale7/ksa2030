@@ -165,3 +165,22 @@ function showError(message, element) {
     // إخفاء الرسالة بعد 3 ثوانٍ
     setTimeout(() => (element.style.display = "none"), 3000);
 }
+
+
+function downloadAsImage() {
+    // إخفاء الأزرار قبل بدء عملية التحميل
+    document.querySelector('.download').style.display = 'none';
+    document.getElementById('backButton').style.display = 'none';
+    document.getElementById('logoutButton').style.display = 'none';
+
+    // تنفيذ عملية التحميل (ضع هنا كود التحميل الخاص بك)
+    // على سبيل المثال:
+    setTimeout(function () {
+        alert('تم تحميل التقرير بنجاح!');
+
+        // إعادة إظهار الأزرار بعد انتهاء التحميل (اختياري)
+        document.querySelector('.download').style.display = 'inline-block';
+        document.getElementById('backButton').style.display = 'inline-block';
+        document.getElementById('logoutButton').style.display = 'inline-block';
+    }, 2000); // محاكاة تحميل يستغرق ثانيتين
+}
