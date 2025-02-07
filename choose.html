@@ -4,63 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اختر التصميم المناسب</title>
+    
     <style>
+        /* تحسين الخط والخلفية */
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            background: linear-gradient(to bottom, #e3fdfd, #cbf1f5, #a6e3e9);
             margin: 0;
             padding: 0;
             text-align: center;
+            color: #003d5b;
         }
 
+        /* عنوان الصفحة */
         h1 {
-            color: #ffffff;
-            font-size: 36px;
-            margin: 20px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 40px;
+            margin: 30px 0;
+            text-shadow: 2px 2px 10px rgba(0, 61, 91, 0.3);
+            font-weight: bold;
         }
 
+        /* الحاوية الأساسية */
         .container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             padding: 20px;
-            overflow-x: auto; /* للسماح بالتمرير الأفقي عند الحاجة */
-            white-space: nowrap; /* منع العناصر من النزول للسطر التالي */
+            overflow-x: auto;
+            white-space: nowrap;
         }
 
+        /* بطاقات التصاميم */
         .option {
-            background-color: white;
+            background-color: #ffffff;
             border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 61, 91, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            width: 350px; /* حجم أكبر */
+            width: 350px;
             overflow: hidden;
-            display: inline-block; /* جعل العناصر تبقى بجانب بعض */
+            display: inline-block;
+            border: 2px solid #00a5cf;
         }
 
         .option:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 61, 91, 0.3);
         }
 
+        /* صور التصاميم */
         .option img {
             width: 100%;
-            height: 600px; /* ارتفاع أكبر لعرض التصميم بوضوح */
+            height: 600px;
             object-fit: fill;
+            border-bottom: 2px solid #00a5cf;
         }
 
+        /* عنوان التصميم */
         .option h2 {
-            background-color: #007BFF;
+            background: linear-gradient(90deg, #00a5cf, #0096c7);
             color: white;
             margin: 0;
             padding: 15px;
-            font-size: 20px;
+            font-size: 22px;
+            font-weight: bold;
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
         }
 
+        /* تحسين العرض على الجوال */
         @media (max-width: 768px) {
             .option {
                 width: 300px;
@@ -74,20 +86,22 @@
     </style>
 </head>
 <body>
-    <h1>اختر التصميم المناسب</h1>
+
+    <h2>✨ اختر التصميم المناسب ✨</h2>
 
     <div class="container">
-        <!-- خيار تصميم 1 -->
+        <!-- تصميم 1 -->
         <div class="option" onclick="location.href='nawaf.html'">
             <img src="photoo1.png" alt="تصميم 1">
             <h2>تصميم 1</h2>
         </div>
 
-        <!-- خيار تصميم 2 -->
+        <!-- تصميم 2 -->
         <div class="option" onclick="location.href='salah.html'">
             <img src="photoo2.png" alt="تصميم 2">
             <h2>تصميم 2</h2>
         </div>
     </div>
+
 </body>
 </html>

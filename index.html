@@ -136,7 +136,7 @@
             <h2>🤝 شريكك المثالي في الإنجاز! 🌟</h2>
             <p> وفرنا لك الوقت والجهد بتصميم ذكي يساعدك على إنشاء تقارير احترافية بكل سهولة وسلاسة. 📝🚀 </p>
 <p style="text-align: center; font-size: 1.5rem; font-weight: bold; color: #003d5b; margin-top: 20px;">
-    🌟 لا تفوّت عرض العام الجديد! 🌟<br>
+    🌟 لا تفوّت عرض يوم التأسيس! 🌟<br>
     🔥 امتلك النسخة الذهبية مدى الحياة الآن مقابل 20 ريال فقط! 💵
 </p>
 <div class="images" style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
@@ -149,7 +149,7 @@
     📩 تواصل معنا الآن لتفعيل حسابك وتسجيل رقم جوالك للحصول على كلمة المرور الخاصة بموقع التقارير الذكية 📝🔑.
     ‎ابدأ رحلتك نحو تقارير أكثر احترافية وتنظيماً بسهولة وسرعة! 🚀
 <p style="text-align: center; margin-top: 20px;">
-    <a href="https://wa.me/966504854223?text=مرحباً،%20أود%20تفعيل%20حسابي%20على%20موقع%20التقارير%20الذكية" 
+    <a href="https://wa.me/966502517217?text=مرحباً،%20أود%20تفعيل%20حسابي%20على%20موقع%20التقارير%20الذكية" 
        target="_blank" 
        style="display: inline-block; background-color: #25d366; color: white; text-decoration: none; 
               padding: 15px 30px; font-size: 1.2rem; border-radius: 5px; font-weight: bold;">
@@ -177,36 +177,34 @@
         </button>
     </form>
 </div>
-    </div>
+
+<script>
+    // قائمة أرقام الجوالات وكلمات المرور
+    const users = [
+        { phone: "0504854223", password: "1234" }, 
+        { phone: "0506399549", password: "1122" }
+    ]; 
 
 
-    <script>
-        // قائمة أرقام الجوالات وكلمات المرور
-        const users = [
-    { phone: "0504854223", password: "1234" },
-    { phone: "0559876543", password: "5678" },
-    { phone: "0547654321", password: "abcd" },
-    { phone: "0533333333", password: "pass123" },   // حساب جديد
-    { phone: "0522222222", password: "2025" }       // حساب جديد
-];
+    function login() {
+        // جلب البيانات المدخلة
+        const phone = document.getElementById('phone').value;
+        const password = document.getElementById('password').value;
 
-        function login() {
-            const phone = document.getElementById('phone').value;
-            const password = document.getElementById('password').value;
+        // البحث عن المستخدم
+        const user = users.find(user => user.phone === phone && user.password === password);
 
-            // التحقق من المستخدم
-            const user = users.find(user => user.phone === phone && user.password === password);
-
-            if (user) {
-                // الانتقال إلى ملف salah.html
-                window.location.href = "choose.html";
-                return false;
-            } else {
-                alert("رقم الجوال أو كلمة المرور غير صحيحة!");
-                return false;
-            }
+        if (user) {
+            // نجاح تسجيل الدخول
+            window.location.href = "choose.html"; // توجيه إلى صفحة اختيار التصميم
+            return false;
+        } else {
+            // فشل تسجيل الدخول
+            alert("رقم الجوال أو كلمة المرور غير صحيحة!");
+            return false;
         }
-    </script>
+    }
+</script>
 
 
 <!-- ربط ملف JavaScript -->
