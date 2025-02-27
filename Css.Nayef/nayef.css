@@ -90,6 +90,15 @@ fields {
     border-color: #103d5e;
     outline: none;
 }
+
+
+
+/* 🔹 ضبط ارتفاع الحقول النصية */
+.field textarea {
+    resize: none;
+    height: 80px; /* ✅ نفس ارتفاع المربعات النصية في Nawaf */
+}
+
 /* 🔹 قسم الشواهد */
 .shahid-section {
     grid-column: span 2;
