@@ -91,6 +91,12 @@ fields {
     outline: none;
 }
 
+/* 🔹 ضبط ارتفاع الحقول النصية */
+.field textarea {
+    resize: none;
+    height: 80px; /* ✅ نفس ارتفاع المربعات النصية في Nawaf */
+}
+
 /* 🔹 ملف nawaf - قسم الشواهد */
 .shahid-section {
     grid-column: span 2;
