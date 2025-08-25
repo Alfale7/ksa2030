@@ -13,26 +13,22 @@
 </head>
 <body>
     <div class="container">
-        <!-- 🔹 الهيدر -->
         <div class="header">
             <div class="text">
-                وزارة التربية والتعليم<br>
+                وزارة  التعليم<br>
                 الإدارة العامة للتعليم<br>
-                مكتب التعليم بمنطقة
-                <!-- عنصر قابل للتحرير لكتابة المنطقة -->
-                <span 
-                    id="regionSpan" 
-                    contenteditable="true" 
-                    style="color:#fff; background-color:transparent; outline:none; border:none; margin-right:5px;"
-                >
-                    اكتب منطقتك
-                </span>
+                مكتب التعليم بمنطقة 
+                <input 
+                    type="text" 
+                    id="regionInput" 
+                    placeholder="أدخل منطقتك هنا" 
+                    oninput="updateRegion()">
             </div>
             <img src="logo.png" alt="شعار وزارة التعليم" class="logo">
         </div>
 
-        <!-- 🔹 الحقول -->
-        <div class="fields">
+        <!-- 🟢 الحقول -->
+       <div class="fields">
             <div class="field">
                 <label for="name">المنفذ/ة:</label>
                 <input type="text" id="name" placeholder="اسم المنفذ">
@@ -43,7 +39,7 @@
                 <input type="text" id="location" placeholder="مكان التنفيذ">
             </div>
 
-            <div class="field">
+             <div class="field">
                 <label for="program_description">وصف البرنامج:</label>
                 <input type="text" id="program_description" placeholder="أكتب الوصف">
             </div>
@@ -79,7 +75,7 @@
             </div>
         </div>
 
-        <!-- 🔹 قسم الشواهد -->
+        <!-- 🟢 قسم الشواهد -->
         <div class="shahid-section">
             <h3>الشواهد ⤵️</h3>
             <div class="shahid-grid">
@@ -102,18 +98,23 @@
             </div>
         </div>
 
-        <!-- 🔹 الأزرار -->
+        <!-- 🟢 الأزرار -->
         <div class="buttons">
-            <button class="download" onclick="downloadAsImage()">اضغط هنا لتحميل التقرير</button>
+            <button class="download" onclick="downloadAsImage()">تحميل التقرير كصورة</button>
         </div>
 
         <div class="navigation-buttons">
-            <button onclick="location.href='choose.html'" class="back-button">الرجوع إلى النماذج</button>
-            <button onclick="location.href='index.html'" class="logout-button">تسجيل الخروج</button>
-        </div>
-    </div> <!-- إغلاق div.container -->
+            <!-- زر الرجوع إلى النماذج -->
+            <button onclick="location.href='choose.html'" class="back-button">
+                الرجوع إلى النماذج
+            </button>
 
-    <!-- سكربتات أخرى إن وجدت (تحميل الصورة مثلاً) -->
+            <!-- زر تسجيل الخروج -->
+            <button onclick="location.href='index.html'" class="logout-button">
+                تسجيل الخروج
+            </button>
+        </div>
+
     <script src="java/script.js"></script>
 </body>
 </html>
